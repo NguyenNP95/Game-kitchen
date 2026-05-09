@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#fff4e6" />
+  <title>Managing Humidity in the Kitchen</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&family=Fredoka:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="app">
+    <!-- ============== HUD ============== -->
+    <header class="hud">
+      <div class="hud-brand">
+        <span class="brand-emoji" aria-hidden="true">🍳</span>
+        <h1 class="game-title" data-i18n="title">Managing Humidity in the Kitchen</h1>
+      </div>
+
+      <div class="hud-stats">
+        <div class="stat-chip score-chip">
+          <span class="chip-icon" aria-hidden="true">⭐</span>
+          <span class="chip-text">
+            <span class="chip-label" data-i18n="labelScore">Score</span>
+            <span class="chip-num" id="scoreValue">0</span>
+          </span>
+        </div>
+        <div class="stat-chip" id="goalStat">
+          <span class="chip-icon" aria-hidden="true">🎯</span>
+          <span class="chip-text">
+            <span class="chip-label" data-i18n="labelGoal">Goal</span>
+            <span class="chip-num" id="goalValue">—</span>
+          </span>
+        </div>
+        <div class="stat-chip timer-chip" id="timerStat" hidden>
+          <span class="chip-icon" aria-hidden="true">⏱️</span>
+          <span class="chip-text">
+            <span class="chip-label" data-i18n="labelTime">Time</span>
+            <span class="chip-num" id="timerValue">0:00</span>
+          </span>
+        </div>
+      </div>
+
+      <div class="hud-meters">
+        <div class="meter">
+          <div class="meter-head">
+            <span class="meter-icon" aria-hidden="true">💧</span>
+            <span class="meter-label" data-i18n="meterHumidity">Humidity</span>
+          </div>
+          <div class="meter-track"><div id="humidityBar" class="meter-fill humidity"></div></div>
+        </div>
+        <div class="meter">
+          <div class="meter-head">
+            <span class="meter-icon" aria-hidden="true">✨</span>
+            <span class="meter-label" data-i18n="meterHygiene">Hygiene</span>
+          </div>
+          <div class="meter-track"><div id="hygieneBar" class="meter-fill hygiene"></div></div>
+        </div>
+      </div>
+
+      <div class="hud-actions">
+        <button type="button" id="btnSettings" class="btn ghost">
+          <span aria-hidden="true">⚙️</span>
+          <span data-i18n="btnSettings">Settings</span>
+        </button>
+        <button type="button" id="btnStart" class="btn primary">
+          <span aria-hidden="true">▶</span>
+          <span data-i18n="btnStart">Start</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- ============== Quick how-to bar ============== -->
+    <div class="tip-bar" role="note">
+      <span class="tip-pill tip-pill-fridge">
+        <span class="tip-icon" aria-hidden="true">🧊</span>
+        <span data-i18n="tipFridge">Drag fridge-tagged food to the Fridge</span>
+      </span>
+      <span class="tip-pill tip-pill-jar">
+        <span class="tip-icon" aria-hidden="true">🫙</span>
+        <span data-i18n="tipJar">Drag jar-tagged food to Dry storage</span>
+      </span>
+      <span class="tip-pill tip-pill-puddle">
+        <span class="tip-icon" aria-hidden="true">💧</span>
+        <span data-i18n="tipPuddle">Click puddles on the counter to wipe</span>
+      </span>
+      <span class="tip-pill tip-pill-trash">
+        <span class="tip-icon" aria-hidden="true">🗑️</span>
+        <span data-i18n="tipTrash">Drag spoiled food to the Trash</span>
+      </span>
+    </div>
+
+    <!-- ============== MAIN: KITCHEN SCENE ============== -->
+    <main class="kitchen">
+      <section class="kitchen-scene" aria-label="Kitchen">
+        <!-- Background: sky + wall + floor -->
+        <div class="bg-sky" aria-hidden="true"></div>
+        <div class="bg-wall" aria-hidden="true">
+          <div class="wall-tiles"></div>
+        </div>
+        <div class="bg-floor" aria-hidden="true">
+          <div class="floor-tiles"></div>
+        </div>
+
+        <!-- Wall decorations -->
+        <div class="deco window" aria-hidden="true">
+          <div class="window-frame">
+            <div class="window-pane">
+              <div class="window-cross-h"></div>
+              <div class="window-cross-v"></div>
+              <div class="window-rain">
+                <span></span><span></span><span></span>
+                <span></span><span></span><span></span>
+              </div>
+            </div>
+          </div>
+          <div class="window-sill"></div>
+          <div class="window-curtain left"></div>
+          <div class="window-curtain right"></div>
+        </div>
+
+        <div class="deco wall-clock" aria-hidden="true">
+          <div class="clock-face">
+            <span class="clock-hand hour"></span>
+            <span class="clock-hand minute"></span>
+            <span class="clock-pivot"></span>
+          </div>
+        </div>
+
+        <div class="deco wall-frame" aria-hidden="true">
+          <span>🍜</span>
+        </div>
+
+        <!-- ====== Main appliance row (fridge, counter+cabinet shelf, jar cabinet) ====== -->
+        <div class="kitchen-row">
+          <!-- LEFT: Fridge (drop zone) -->
+          <div class="iso-fridge drop-zone" id="zoneFridge" data-zone="fridge">
+            <div class="fridge-body">
+              <div class="fridge-top">
+                <span class="fridge-magnet" aria-hidden="true">❄️</span>
+                <span class="fridge-magnet small" aria-hidden="true">🧲</span>
+              </div>
+              <div class="fridge-divider"></div>
+              <div class="fridge-bottom">
+                <span class="fridge-emoji" aria-hidden="true">🧊</span>
+              </div>
+              <span class="fridge-handle top" aria-hidden="true"></span>
+              <span class="fridge-handle bottom" aria-hidden="true"></span>
+            </div>
+            <div class="zone-tag">
+              <span class="zone-title" data-i18n="zoneFridge">Fridge</span>
+              <span class="zone-sub" data-i18n="zoneFridgeHint">Perishables</span>
+            </div>
+          </div>
+
+          <!-- CENTER: Cabinet shelf (decor) + Counter (play area) -->
+          <div class="iso-counter">
+            <div class="upper-shelf" aria-hidden="true">
+              <div class="shelf-board"></div>
+              <div class="shelf-items">
+                <span>📕</span>
+                <span>🪴</span>
+                <span>🍶</span>
+                <span>🕯️</span>
+                <span>📗</span>
+              </div>
+            </div>
+
+            <div class="counter-wrap">
+              <div class="counter-surface" id="dropCounter">
+                <span class="counter-hint" data-i18n="hintCounter">Counter</span>
+                <div id="puddlesLayer" class="puddles-layer"></div>
+                <div id="itemsLayer" class="items-layer"></div>
+              </div>
+              <div class="counter-edge"></div>
+              <div class="counter-front">
+                <div class="cabinet-door"><span class="cabinet-knob"></span></div>
+                <div class="cabinet-door"><span class="cabinet-knob"></span></div>
+                <div class="cabinet-door"><span class="cabinet-knob"></span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT: Jar cabinet (drop zone) -->
+          <div class="iso-cabinet drop-zone" id="zoneJar" data-zone="jar">
+            <div class="cabinet-body">
+              <div class="cabinet-row">
+                <span class="cabinet-jar" aria-hidden="true">🫙</span>
+                <span class="cabinet-jar" aria-hidden="true">🥫</span>
+              </div>
+              <div class="cabinet-row">
+                <span class="cabinet-jar" aria-hidden="true">🍯</span>
+                <span class="cabinet-jar" aria-hidden="true">🫙</span>
+              </div>
+              <div class="cabinet-row">
+                <span class="cabinet-jar" aria-hidden="true">🥫</span>
+                <span class="cabinet-jar" aria-hidden="true">🫙</span>
+              </div>
+            </div>
+            <div class="zone-tag">
+              <span class="zone-title" data-i18n="zoneJar">Dry storage</span>
+              <span class="zone-sub" data-i18n="zoneJarHint">Sealed jars &amp; boxes</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ====== Floor row (dehumidifier, sink, trash) ====== -->
+        <div class="floor-row">
+          <div class="dehumidifier-zone">
+            <button type="button" id="btnDehumidifier" class="appliance-btn" aria-pressed="false">
+              <span class="appliance-emoji" aria-hidden="true">🌪️</span>
+              <span class="appliance-info">
+                <span class="appliance-label" data-i18n="dehumidifier">Dehumidifier</span>
+                <span class="status-pill off" id="dehumidifierStatus" data-i18n="statusOff">Off</span>
+              </span>
+            </button>
+            <div class="dehumidifier-mist" aria-hidden="true">
+              <span></span><span></span><span></span><span></span>
+            </div>
+          </div>
+
+          <div class="sink-zone drop-zone" id="zoneSponge" data-zone="sponge">
+            <div class="sink-basin">
+              <span class="sink-tap" aria-hidden="true">🚰</span>
+              <span class="sink-sponge" aria-hidden="true">🧽</span>
+            </div>
+            <span class="zone-sub" data-i18n="sinkHint">Tap puddles on the counter to wipe</span>
+          </div>
+
+          <div class="trash-zone drop-zone" id="zoneTrash" data-zone="trash">
+            <div class="trash-body">
+              <div class="trash-lid"></div>
+              <div class="trash-can">
+                <span class="trash-emoji" aria-hidden="true">🗑️</span>
+              </div>
+            </div>
+            <div class="zone-tag">
+              <span class="zone-title" data-i18n="zoneTrash">Trash</span>
+              <span class="zone-sub" data-i18n="zoneTrashHint">Spoiled only</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- corner plant -->
+        <div class="deco corner-plant" aria-hidden="true">
+          <span class="plant-leaves">🪴</span>
+        </div>
+      </section>
+
+      <!-- ============== SIDE PANEL ============== -->
+      <aside class="side-panel">
+        <div class="panel-head">
+          <span aria-hidden="true">🏆</span>
+          <h2 data-i18n="panelHighScores">Top 5</h2>
+        </div>
+        <ol id="highScoreList" class="high-list"></ol>
+        <p class="muted small" data-i18n="highScoreNote">Saved on this device only.</p>
+      </aside>
+    </main>
+
+    <!-- ============== Settings modal ============== -->
+    <div id="modalSettings" class="modal" hidden role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+      <div class="modal-backdrop" data-close></div>
+      <div class="modal-card">
+        <h2 id="settingsTitle" data-i18n="settingsTitle">Settings</h2>
+        <form id="formSettings" class="settings-form">
+          <fieldset>
+            <legend data-i18n="setLanguage">Language</legend>
+            <label class="radio-row">
+              <input type="radio" name="language" value="auto" />
+              <span data-i18n="langAuto">Auto (browser)</span>
+            </label>
+            <label class="radio-row">
+              <input type="radio" name="language" value="vi" />
+              <span>Tiếng Việt</span>
+            </label>
+            <label class="radio-row">
+              <input type="radio" name="language" value="en" />
+              <span>English</span>
+            </label>
+          </fieldset>
+          <fieldset>
+            <legend data-i18n="setDifficulty">Difficulty</legend>
+            <label class="radio-row"><input type="radio" name="difficulty" value="easy" /> <span data-i18n="diffEasy">Easy</span></label>
+            <label class="radio-row"><input type="radio" name="difficulty" value="normal" /> <span data-i18n="diffNormal">Normal</span></label>
+            <label class="radio-row"><input type="radio" name="difficulty" value="hard" /> <span data-i18n="diffHard">Hard</span></label>
+          </fieldset>
+          <fieldset>
+            <legend data-i18n="setWin">Win condition</legend>
+            <label class="radio-row"><input type="radio" name="winMode" value="score" /> <span data-i18n="winByScore">Reach score</span></label>
+            <label class="row-input">
+              <span data-i18n="labelTargetScore">Target score</span>
+              <input type="number" id="inputTargetScore" min="100" max="99999" step="50" value="1000" />
+            </label>
+            <label class="radio-row"><input type="radio" name="winMode" value="time" /> <span data-i18n="winByTime">Survive for (minutes)</span></label>
+            <label class="row-input">
+              <span data-i18n="labelTargetMinutes">Minutes</span>
+              <input type="number" id="inputTargetMinutes" min="1" max="60" step="1" value="3" />
+            </label>
+          </fieldset>
+          <fieldset>
+            <legend data-i18n="setAudio">Audio</legend>
+            <label class="check-row">
+              <input type="checkbox" id="checkSound" />
+              <span data-i18n="soundEnabled">Sound on</span>
+            </label>
+          </fieldset>
+          <fieldset>
+            <legend data-i18n="setAccessibility">Display</legend>
+            <label class="check-row">
+              <input type="checkbox" id="checkReduceMotion" />
+              <span data-i18n="reduceMotion">Reduce motion</span>
+            </label>
+          </fieldset>
+          <div class="modal-actions">
+            <button type="button" class="btn ghost" id="btnCancelSettings" data-i18n="btnCancel">Close</button>
+            <button type="submit" class="btn primary" data-i18n="btnSave">Save</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- ============== End-of-game overlay ============== -->
+    <div id="overlayEnd" class="overlay" hidden>
+      <div class="overlay-card">
+        <div class="overlay-emoji" aria-hidden="true">🍀</div>
+        <h2 id="endTitle"></h2>
+        <p id="endMessage" class="end-msg"></p>
+        <button type="button" id="btnOverlayClose" class="btn primary" data-i18n="btnPlayAgain">Play again</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/i18n.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/foods.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

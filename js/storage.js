@@ -18,7 +18,7 @@ const defaultSettings = () => ({
   languagePref: "auto",
   difficulty: "normal",
   winMode: "score",
-  targetScore: 1000,
+  targetScore: 25,        // net saved target (saved − wasted)
   targetMinutes: 3,
   sound: true,
   reduceMotion: false,
@@ -30,7 +30,13 @@ function loadSettings() {
     const raw = localStorage.getItem(KEY_SETTINGS);
     if (!raw) return defaultSettings();
     const o = JSON.parse(raw);
-    return { ...defaultSettings(), ...o };
+    const merged = { ...defaultSettings(), ...o };
+    // Migration: scoring switched from "points" (100-99999) to "net saved" (5-200).
+    // Anything above 200 is from the old system — reset to the new default.
+    if (typeof merged.targetScore !== "number" || merged.targetScore > 200) {
+      merged.targetScore = 25;
+    }
+    return merged;
   } catch {
     return defaultSettings();
   }

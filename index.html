@@ -1,41 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#fff4e6" />
+  <meta name="theme-color" content="#2b1d3a" />
   <title>Managing Humidity in the Kitchen</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&family=Fredoka:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Quicksand:wght@500;600;700&family=Fredoka:wght@500;600;700&display=swap"
+    rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
   <div id="app">
     <!-- ============== HUD ============== -->
     <header class="hud">
       <div class="hud-brand">
-        <span class="brand-emoji" aria-hidden="true">🍳</span>
+        <span class="brand-sprite" aria-hidden="true"></span>
         <h1 class="game-title" data-i18n="title">Managing Humidity in the Kitchen</h1>
       </div>
 
       <div class="hud-stats">
-        <div class="stat-chip score-chip">
-          <span class="chip-icon" aria-hidden="true">⭐</span>
+        <div class="stat-chip saved-chip">
+          <span class="chip-icon icon-saved" aria-hidden="true"></span>
           <span class="chip-text">
-            <span class="chip-label" data-i18n="labelScore">Score</span>
+            <span class="chip-label" data-i18n="labelSaved">Saved</span>
+            <span class="chip-num" id="savedValue">0</span>
+          </span>
+        </div>
+        <div class="stat-chip wasted-chip">
+          <span class="chip-icon icon-wasted" aria-hidden="true"></span>
+          <span class="chip-text">
+            <span class="chip-label" data-i18n="labelWasted">Wasted</span>
+            <span class="chip-num" id="wastedValue">0</span>
+          </span>
+        </div>
+        <div class="stat-chip score-chip" id="goalStat">
+          <span class="chip-icon icon-star" aria-hidden="true"></span>
+          <span class="chip-text">
+            <span class="chip-label" data-i18n="labelNet">Net</span>
             <span class="chip-num" id="scoreValue">0</span>
           </span>
         </div>
-        <div class="stat-chip" id="goalStat">
-          <span class="chip-icon" aria-hidden="true">🎯</span>
+        <div class="stat-chip clock-chip">
+          <span class="chip-icon icon-hourglass" aria-hidden="true"></span>
           <span class="chip-text">
-            <span class="chip-label" data-i18n="labelGoal">Goal</span>
-            <span class="chip-num" id="goalValue">—</span>
+            <span class="chip-label" data-i18n="labelGameClock">Kitchen time</span>
+            <span class="chip-num" id="gameClockValue">0:00</span>
           </span>
         </div>
         <div class="stat-chip timer-chip" id="timerStat" hidden>
-          <span class="chip-icon" aria-hidden="true">⏱️</span>
+          <span class="chip-icon icon-clock" aria-hidden="true"></span>
           <span class="chip-text">
             <span class="chip-label" data-i18n="labelTime">Time</span>
             <span class="chip-num" id="timerValue">0:00</span>
@@ -46,27 +64,29 @@
       <div class="hud-meters">
         <div class="meter">
           <div class="meter-head">
-            <span class="meter-icon" aria-hidden="true">💧</span>
+            <span class="meter-icon icon-drop" aria-hidden="true"></span>
             <span class="meter-label" data-i18n="meterHumidity">Humidity</span>
           </div>
-          <div class="meter-track"><div id="humidityBar" class="meter-fill humidity"></div></div>
+          <div class="meter-track">
+            <div id="humidityBar" class="meter-fill humidity"></div>
+          </div>
         </div>
         <div class="meter">
           <div class="meter-head">
-            <span class="meter-icon" aria-hidden="true">✨</span>
+            <span class="meter-icon icon-spark" aria-hidden="true"></span>
             <span class="meter-label" data-i18n="meterHygiene">Hygiene</span>
           </div>
-          <div class="meter-track"><div id="hygieneBar" class="meter-fill hygiene"></div></div>
+          <div class="meter-track">
+            <div id="hygieneBar" class="meter-fill hygiene"></div>
+          </div>
         </div>
       </div>
 
       <div class="hud-actions">
         <button type="button" id="btnSettings" class="btn ghost">
-          <span aria-hidden="true">⚙️</span>
           <span data-i18n="btnSettings">Settings</span>
         </button>
         <button type="button" id="btnStart" class="btn primary">
-          <span aria-hidden="true">▶</span>
           <span data-i18n="btnStart">Start</span>
         </button>
       </div>
@@ -75,142 +95,67 @@
     <!-- ============== Quick how-to bar ============== -->
     <div class="tip-bar" role="note">
       <span class="tip-pill tip-pill-fridge">
-        <span class="tip-icon" aria-hidden="true">🧊</span>
-        <span data-i18n="tipFridge">Drag fridge-tagged food to the Fridge</span>
+        <span class="tip-icon icon-fridge" aria-hidden="true"></span>
+        <span data-i18n="tipFridge">Meat / dairy / produce → Fridge</span>
       </span>
       <span class="tip-pill tip-pill-jar">
-        <span class="tip-icon" aria-hidden="true">🫙</span>
-        <span data-i18n="tipJar">Drag jar-tagged food to Dry storage</span>
+        <span class="tip-icon icon-jar" aria-hidden="true"></span>
+        <span data-i18n="tipJar">Grains, beans, nuts → Dry storage</span>
       </span>
-      <span class="tip-pill tip-pill-puddle">
-        <span class="tip-icon" aria-hidden="true">💧</span>
-        <span data-i18n="tipPuddle">Click puddles on the counter to wipe</span>
+      <span class="tip-pill tip-pill-canned">
+        <span class="tip-icon icon-can" aria-hidden="true"></span>
+        <span data-i18n="tipCanned">Sealed cans → Canned pantry (opened ones must go cold!)</span>
       </span>
       <span class="tip-pill tip-pill-trash">
-        <span class="tip-icon" aria-hidden="true">🗑️</span>
-        <span data-i18n="tipTrash">Drag spoiled food to the Trash</span>
+        <span class="tip-icon icon-trash" aria-hidden="true"></span>
+        <span data-i18n="tipTrash">Spoiled or past 4-hour limit → Trash</span>
+      </span>
+      <span class="tip-pill tip-pill-sun">
+        <span class="tip-icon icon-sun" aria-hidden="true"></span>
+        <span data-i18n="tipSun">Sunny patches on the counter spoil food twice as fast</span>
+      </span>
+      <span class="tip-pill tip-pill-puddle">
+        <span class="tip-icon icon-drop" aria-hidden="true"></span>
+        <span data-i18n="tipPuddle">Click puddles on the floor to wipe</span>
       </span>
     </div>
 
-    <!-- ============== MAIN: KITCHEN SCENE ============== -->
+    <!-- ============== MAIN ============== -->
     <main class="kitchen">
+      <!-- ============== KITCHEN SCENE (oblique top-down, U-shape) ============== -->
       <section class="kitchen-scene" aria-label="Kitchen">
-        <!-- Background: sky + wall + floor -->
-        <div class="bg-sky" aria-hidden="true"></div>
-        <div class="bg-wall" aria-hidden="true">
-          <div class="wall-tiles"></div>
-        </div>
-        <div class="bg-floor" aria-hidden="true">
-          <div class="floor-tiles"></div>
-        </div>
+        <!-- Background: thin wall band on top, big floor below -->
+        <div class="bg-wall" aria-hidden="true"></div>
+        <div class="bg-floor" aria-hidden="true"></div>
 
-        <!-- Wall decorations -->
+        <!-- Wall decorations (on the thin wall band) -->
         <div class="deco window" aria-hidden="true">
-          <div class="window-frame">
-            <div class="window-pane">
-              <div class="window-cross-h"></div>
-              <div class="window-cross-v"></div>
-              <div class="window-rain">
-                <span></span><span></span><span></span>
-                <span></span><span></span><span></span>
-              </div>
+          <div class="window-glass">
+            <span class="window-sun"></span>
+            <span class="window-cloud c1"></span>
+            <span class="window-cloud c2"></span>
+            <div class="window-rain">
+              <span></span><span></span><span></span>
+              <span></span><span></span><span></span>
             </div>
           </div>
-          <div class="window-sill"></div>
-          <div class="window-curtain left"></div>
-          <div class="window-curtain right"></div>
         </div>
 
         <div class="deco wall-clock" aria-hidden="true">
-          <div class="clock-face">
-            <span class="clock-hand hour"></span>
-            <span class="clock-hand minute"></span>
-            <span class="clock-pivot"></span>
-          </div>
+          <span class="clock-hand hour"></span>
+          <span class="clock-hand minute"></span>
+          <span class="clock-pivot"></span>
         </div>
 
-        <div class="deco wall-frame" aria-hidden="true">
-          <span>🍜</span>
-        </div>
+        <div class="deco wall-frame" aria-hidden="true"></div>
 
-        <!-- ====== Main appliance row (fridge, counter+cabinet shelf, jar cabinet) ====== -->
-        <div class="kitchen-row">
-          <!-- LEFT: Fridge (drop zone) -->
-          <div class="iso-fridge drop-zone" id="zoneFridge" data-zone="fridge">
-            <div class="fridge-body">
-              <div class="fridge-top">
-                <span class="fridge-magnet" aria-hidden="true">❄️</span>
-                <span class="fridge-magnet small" aria-hidden="true">🧲</span>
-              </div>
-              <div class="fridge-divider"></div>
-              <div class="fridge-bottom">
-                <span class="fridge-emoji" aria-hidden="true">🧊</span>
-              </div>
-              <span class="fridge-handle top" aria-hidden="true"></span>
-              <span class="fridge-handle bottom" aria-hidden="true"></span>
-            </div>
-            <div class="zone-tag">
-              <span class="zone-title" data-i18n="zoneFridge">Fridge</span>
-              <span class="zone-sub" data-i18n="zoneFridgeHint">Perishables</span>
-            </div>
-          </div>
-
-          <!-- CENTER: Cabinet shelf (decor) + Counter (play area) -->
-          <div class="iso-counter">
-            <div class="upper-shelf" aria-hidden="true">
-              <div class="shelf-board"></div>
-              <div class="shelf-items">
-                <span>📕</span>
-                <span>🪴</span>
-                <span>🍶</span>
-                <span>🕯️</span>
-                <span>📗</span>
-              </div>
-            </div>
-
-            <div class="counter-wrap">
-              <div class="counter-surface" id="dropCounter">
-                <span class="counter-hint" data-i18n="hintCounter">Counter</span>
-                <div id="puddlesLayer" class="puddles-layer"></div>
-                <div id="itemsLayer" class="items-layer"></div>
-              </div>
-              <div class="counter-edge"></div>
-              <div class="counter-front">
-                <div class="cabinet-door"><span class="cabinet-knob"></span></div>
-                <div class="cabinet-door"><span class="cabinet-knob"></span></div>
-                <div class="cabinet-door"><span class="cabinet-knob"></span></div>
-              </div>
-            </div>
-          </div>
-
-          <!-- RIGHT: Jar cabinet (drop zone) -->
-          <div class="iso-cabinet drop-zone" id="zoneJar" data-zone="jar">
-            <div class="cabinet-body">
-              <div class="cabinet-row">
-                <span class="cabinet-jar" aria-hidden="true">🫙</span>
-                <span class="cabinet-jar" aria-hidden="true">🥫</span>
-              </div>
-              <div class="cabinet-row">
-                <span class="cabinet-jar" aria-hidden="true">🍯</span>
-                <span class="cabinet-jar" aria-hidden="true">🫙</span>
-              </div>
-              <div class="cabinet-row">
-                <span class="cabinet-jar" aria-hidden="true">🥫</span>
-                <span class="cabinet-jar" aria-hidden="true">🫙</span>
-              </div>
-            </div>
-            <div class="zone-tag">
-              <span class="zone-title" data-i18n="zoneJar">Dry storage</span>
-              <span class="zone-sub" data-i18n="zoneJarHint">Sealed jars &amp; boxes</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- ====== Floor row (dehumidifier, sink, trash) ====== -->
-        <div class="floor-row">
+        <!-- ====== FLOOR STAGE — main play area (U-shape kitchen) ====== -->
+        <div class="floor-stage">
+          <!-- BACK ROW: counter island (top center) -->
+          <!-- Dehumidifier control -->
           <div class="dehumidifier-zone">
             <button type="button" id="btnDehumidifier" class="appliance-btn" aria-pressed="false">
-              <span class="appliance-emoji" aria-hidden="true">🌪️</span>
+              <!-- <span class="appliance-sprite sprite-dehumidifier" aria-hidden="true"></span> -->
               <span class="appliance-info">
                 <span class="appliance-label" data-i18n="dehumidifier">Dehumidifier</span>
                 <span class="status-pill off" id="dehumidifierStatus" data-i18n="statusOff">Off</span>
@@ -220,43 +165,497 @@
               <span></span><span></span><span></span><span></span>
             </div>
           </div>
-
-          <div class="sink-zone drop-zone" id="zoneSponge" data-zone="sponge">
-            <div class="sink-basin">
-              <span class="sink-tap" aria-hidden="true">🚰</span>
-              <span class="sink-sponge" aria-hidden="true">🧽</span>
+          <div class="furniture iso-counter pos-counter">
+            <div class="counter-top" id="dropCounter">
+              <span class="counter-hint" data-i18n="hintCounter">Counter</span>
+              <div id="itemsLayer" class="items-layer"></div>
             </div>
-            <span class="zone-sub" data-i18n="sinkHint">Tap puddles on the counter to wipe</span>
+            <div class="counter-front">
+              <span class="cabinet-door"><span class="cabinet-knob"></span></span>
+              <span class="cabinet-door"><span class="cabinet-knob"></span></span>
+              <span class="cabinet-door"><span class="cabinet-knob"></span></span>
+            </div>
           </div>
 
-          <div class="trash-zone drop-zone" id="zoneTrash" data-zone="trash">
-            <div class="trash-body">
-              <div class="trash-lid"></div>
-              <div class="trash-can">
-                <span class="trash-emoji" aria-hidden="true">🗑️</span>
-              </div>
-            </div>
-            <div class="zone-tag">
+          <!-- LEFT WALL: fridge (top-left), sink (bottom-left) -->
+          <button type="button" class="furniture iso-fridge drop-zone pos-fridge" id="zoneFridge" data-zone="fridge"
+            aria-label="Fridge">
+            <span class="sprite sprite-fridge" aria-hidden="true">
+              <svg viewBox="0 0 100 140" preserveAspectRatio="xMidYMax meet" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="fridgeBody" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#fdfeff" />
+                    <stop offset="55%" stop-color="#eaf2f7" />
+                    <stop offset="100%" stop-color="#d3e0e8" />
+                  </linearGradient>
+                  <linearGradient id="fridgeShine" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0%" stop-color="rgba(255,255,255,0.85)" />
+                    <stop offset="100%" stop-color="rgba(255,255,255,0)" />
+                  </linearGradient>
+                  <linearGradient id="fridgeHandle" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#dde6ec" />
+                    <stop offset="50%" stop-color="#a4b3bc" />
+                    <stop offset="100%" stop-color="#7d8c95" />
+                  </linearGradient>
+                </defs>
+                <ellipse cx="50" cy="135" rx="40" ry="3.5" fill="rgba(74,53,40,0.22)" />
+                <rect x="9" y="5" width="82" height="126" rx="11" fill="url(#fridgeBody)" stroke="#a8b8c2"
+                  stroke-width="1.5" />
+                <rect x="11" y="7" width="78" height="5" rx="3" fill="#ffffff" opacity="0.85" />
+                <rect x="15" y="11" width="14" height="115" rx="6" fill="url(#fridgeShine)" opacity="0.55" />
+                <rect x="9" y="44" width="82" height="3" fill="#a4b3bc" />
+                <line x1="9" y1="47.2" x2="91" y2="47.2" stroke="#ffffff" stroke-width="0.7" />
+                <rect x="71" y="20" width="5" height="18" rx="2.5" fill="url(#fridgeHandle)" stroke="#6f7d86"
+                  stroke-width="0.5" />
+                <rect x="71" y="62" width="5" height="55" rx="2.5" fill="url(#fridgeHandle)" stroke="#6f7d86"
+                  stroke-width="0.5" />
+                <rect x="13" y="20" width="5" height="3" rx="1" fill="#9aaab4" />
+                <circle cx="15.5" cy="21.5" r="0.7" fill="#7ce0a8" />
+                <g transform="translate(28,72)">
+                  <path d="M0 4 C-2 -1 -7 -1 -7 3 C-7 7 0 12 0 12 C0 12 7 7 7 3 C7 -1 2 -1 0 4 Z" fill="#ff90a8"
+                    stroke="#d96080" stroke-width="0.8" stroke-linejoin="round" />
+                  <ellipse cx="-2.5" cy="2.5" rx="1.2" ry="0.8" fill="rgba(255,255,255,0.7)" />
+                </g>
+                <g transform="translate(55,92)">
+                  <ellipse cx="-7" cy="0" rx="1.6" ry="2.4" fill="#4a3528" />
+                  <ellipse cx="7" cy="0" rx="1.6" ry="2.4" fill="#4a3528" />
+                  <ellipse cx="-6.6" cy="-0.6" rx="0.55" ry="0.8" fill="#fff" />
+                  <ellipse cx="7.4" cy="-0.6" rx="0.55" ry="0.8" fill="#fff" />
+                  <path d="M-3.5 5.5 Q0 8.5 3.5 5.5" stroke="#4a3528" stroke-width="1.2" fill="none"
+                    stroke-linecap="round" />
+                  <ellipse cx="-11" cy="3" rx="2.3" ry="1.3" fill="#ffb0c4" opacity="0.7" />
+                  <ellipse cx="11" cy="3" rx="2.3" ry="1.3" fill="#ffb0c4" opacity="0.7" />
+                </g>
+                <rect x="14" y="128" width="7" height="5" rx="1.5" fill="#7d8c95" />
+                <rect x="79" y="128" width="7" height="5" rx="1.5" fill="#7d8c95" />
+              </svg>
+            </span>
+            <span class="zone-tag">
+              <span class="zone-title" data-i18n="zoneFridge">Fridge</span>
+              <span class="zone-sub" data-i18n="zoneFridgeHint">Perishables</span>
+            </span>
+          </button>
+
+          <button type="button" class="floor-zone sink-zone drop-zone pos-sink" id="zoneSponge" data-zone="sponge"
+            aria-label="Sink">
+            <span class="sprite sprite-sink" aria-hidden="true">
+              <svg viewBox="0 0 100 90" preserveAspectRatio="xMidYMax meet" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="sinkBasin" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#fbfcfd" />
+                    <stop offset="100%" stop-color="#cfd6db" />
+                  </linearGradient>
+                  <linearGradient id="sinkRim" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#f4f6f8" />
+                    <stop offset="100%" stop-color="#b8c2cb" />
+                  </linearGradient>
+                  <linearGradient id="sinkWater" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#dff0fa" />
+                    <stop offset="100%" stop-color="#7eb6d8" />
+                  </linearGradient>
+                  <linearGradient id="sinkFaucet" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#f0f4f7" />
+                    <stop offset="50%" stop-color="#b6c2cc" />
+                    <stop offset="100%" stop-color="#7d8c95" />
+                  </linearGradient>
+                </defs>
+                <ellipse cx="50" cy="86" rx="40" ry="3" fill="rgba(74,53,40,0.20)" />
+                <rect x="8" y="14" width="84" height="13" rx="3" fill="#eef3f6" stroke="#b8c4cd" stroke-width="1" />
+                <rect x="9" y="15" width="82" height="2.5" rx="1" fill="#fff" opacity="0.85" />
+                <rect x="46" y="22" width="8" height="6" rx="1.5" fill="url(#sinkFaucet)" stroke="#7d8c95"
+                  stroke-width="0.6" />
+                <path d="M50 22 L50 11 Q50 5 44 5 L34 5" fill="none" stroke="url(#sinkFaucet)" stroke-width="3.6"
+                  stroke-linecap="round" />
+                <circle cx="34" cy="5" r="2.8" fill="#cfd8df" stroke="#7d8c95" stroke-width="0.6" />
+                <circle cx="34" cy="5" r="1.2" fill="#7d8c95" />
+                <circle cx="60" cy="20" r="3.8" fill="#cce6f5" stroke="#7d8c95" stroke-width="0.7" />
+                <rect x="56.8" y="19.4" width="6.4" height="1.2" rx="0.6" fill="#7d8c95" />
+                <path d="M34 8 L34.4 18 L33.6 18 Z" fill="rgba(140,188,216,0.85)" />
+                <ellipse cx="34" cy="20" rx="1.5" ry="1" fill="rgba(140,188,216,0.65)" />
+                <path d="M7 30 Q7 27 11 27 H89 Q93 27 93 30 V72 Q93 80 84 80 H16 Q7 80 7 72 Z" fill="url(#sinkRim)"
+                  stroke="#9aa8b1" stroke-width="1.2" />
+                <path d="M14 33 Q14 32 16 32 H84 Q86 32 86 33 V64 Q86 70 80 70 H20 Q14 70 14 64 Z"
+                  fill="url(#sinkBasin)" stroke="#7d8c95" stroke-width="0.9" />
+                <path d="M14 33 Q14 32 16 32 H84 Q86 32 86 33" stroke="rgba(255,255,255,0.85)" stroke-width="1.3"
+                  fill="none" stroke-linecap="round" />
+                <ellipse cx="50" cy="55" rx="33" ry="11" fill="url(#sinkWater)" opacity="0.9" />
+                <ellipse cx="40" cy="50" rx="7" ry="1.3" fill="rgba(255,255,255,0.6)" />
+                <ellipse cx="60" cy="58" rx="5" ry="0.9" fill="rgba(255,255,255,0.45)" />
+                <ellipse cx="34" cy="48" rx="2" ry="2.5" fill="#cce6f5" opacity="0.85" />
+                <circle cx="68" cy="46" r="1.4" fill="rgba(255,255,255,0.7)" />
+                <ellipse cx="50" cy="62" rx="3.5" ry="1.4" fill="#3a2820" opacity="0.55" />
+                <ellipse cx="50" cy="61.6" rx="2" ry="0.7" fill="#1a1008" opacity="0.6" />
+              </svg>
+            </span>
+            <span class="zone-tag">
+              <span class="zone-title" data-i18n="sink">Bồn rửa</span>
+              <span class="zone-sub" data-i18n="sinkHint">Tap puddles to wipe</span>
+            </span>
+          </button>
+
+          <!-- RIGHT WALL: jar cabinet (top-right), trash (bottom-right) -->
+          <button type="button" class="furniture iso-cabinet drop-zone pos-jar" id="zoneJar" data-zone="jar"
+            aria-label="Dry storage">
+            <span class="sprite sprite-cabinet" aria-hidden="true">
+              <svg viewBox="0 0 100 140" preserveAspectRatio="xMidYMax meet" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="cabFrame" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#e8c89c" />
+                    <stop offset="100%" stop-color="#b88454" />
+                  </linearGradient>
+                  <linearGradient id="cabInside" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#fef3df" />
+                    <stop offset="100%" stop-color="#f0d9a8" />
+                  </linearGradient>
+                  <linearGradient id="cabGlass" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="rgba(255,255,255,0.6)" />
+                    <stop offset="40%" stop-color="rgba(255,255,255,0.05)" />
+                    <stop offset="100%" stop-color="rgba(255,255,255,0.25)" />
+                  </linearGradient>
+                  <linearGradient id="shelfWood" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#a07840" />
+                    <stop offset="100%" stop-color="#6f5028" />
+                  </linearGradient>
+                </defs>
+                <ellipse cx="50" cy="135" rx="42" ry="3.5" fill="rgba(74,53,40,0.22)" />
+                <rect x="5" y="3" width="90" height="129" rx="9" fill="url(#cabFrame)" stroke="#7a4f25"
+                  stroke-width="1.5" />
+                <rect x="11" y="9" width="78" height="117" rx="4" fill="url(#cabInside)" stroke="#a07840"
+                  stroke-width="0.8" />
+                <rect x="11" y="44" width="78" height="3.5" fill="url(#shelfWood)" />
+                <rect x="11" y="86" width="78" height="3.5" fill="url(#shelfWood)" />
+
+                <g>
+                  <rect x="20" y="22" width="14" height="22" rx="2.5" fill="#b8e0c8" stroke="#5fb088"
+                    stroke-width="0.9" />
+                  <rect x="19" y="19" width="16" height="4" rx="1" fill="#5a4030" />
+                  <rect x="19.5" y="19.5" width="15" height="1.2" rx="0.6" fill="#7a5a40" />
+                  <ellipse cx="23" cy="27" rx="1.6" ry="3" fill="rgba(255,255,255,0.55)" />
+                  <circle cx="24" cy="36" r="0.9" fill="#5fb088" />
+                  <circle cx="28" cy="38" r="0.9" fill="#5fb088" />
+                  <circle cx="31" cy="35" r="0.9" fill="#5fb088" />
+
+                  <rect x="42" y="20" width="16" height="24" rx="2.5" fill="#ffd97a" stroke="#c89018"
+                    stroke-width="0.9" />
+                  <rect x="41" y="17" width="18" height="4" rx="1" fill="#5a4030" />
+                  <rect x="41.5" y="17.5" width="17" height="1.2" rx="0.6" fill="#7a5a40" />
+                  <ellipse cx="46" cy="26" rx="1.8" ry="3.2" fill="rgba(255,255,255,0.55)" />
+                  <line x1="44" y1="36" x2="46" y2="40" stroke="#c89018" stroke-width="1" stroke-linecap="round" />
+                  <line x1="48" y1="35" x2="50" y2="40" stroke="#c89018" stroke-width="1" stroke-linecap="round" />
+                  <line x1="52" y1="36" x2="54" y2="41" stroke="#c89018" stroke-width="1" stroke-linecap="round" />
+
+                  <rect x="65" y="24" width="13" height="20" rx="2" fill="#ff8fa3" stroke="#d05878"
+                    stroke-width="0.9" />
+                  <rect x="64" y="21" width="15" height="4" rx="1" fill="#5a4030" />
+                  <rect x="64.5" y="21.5" width="14" height="1.2" rx="0.6" fill="#7a5a40" />
+                  <ellipse cx="68" cy="29" rx="1.5" ry="2.6" fill="rgba(255,255,255,0.55)" />
+                </g>
+
+                <g>
+                  <rect x="18" y="62" width="17" height="24" rx="2.5" fill="#cce6f5" stroke="#7eb0d0"
+                    stroke-width="0.9" />
+                  <rect x="17" y="59" width="19" height="4" rx="1" fill="#5a4030" />
+                  <rect x="17.5" y="59.5" width="18" height="1.2" rx="0.6" fill="#7a5a40" />
+                  <ellipse cx="22" cy="68" rx="1.8" ry="3.2" fill="rgba(255,255,255,0.6)" />
+                  <ellipse cx="22" cy="80" rx="1.2" ry="0.7" fill="#e2a920" />
+                  <ellipse cx="26" cy="82" rx="1.2" ry="0.7" fill="#e2a920" />
+                  <ellipse cx="30" cy="80" rx="1.2" ry="0.7" fill="#e2a920" />
+
+                  <rect x="42" y="64" width="13" height="22" rx="2" fill="#ffc8a0" stroke="#d97a4f"
+                    stroke-width="0.9" />
+                  <rect x="41" y="61" width="15" height="4" rx="1" fill="#5a4030" />
+                  <rect x="41.5" y="61.5" width="14" height="1.2" rx="0.6" fill="#7a5a40" />
+                  <ellipse cx="45" cy="71" rx="1.5" ry="2.8" fill="rgba(255,255,255,0.55)" />
+
+                  <rect x="62" y="62" width="16" height="24" rx="2.5" fill="#e0d4f0" stroke="#9080a8"
+                    stroke-width="0.9" />
+                  <rect x="61" y="59" width="18" height="4" rx="1" fill="#5a4030" />
+                  <rect x="61.5" y="59.5" width="17" height="1.2" rx="0.6" fill="#7a5a40" />
+                  <ellipse cx="66" cy="68" rx="1.8" ry="3" fill="rgba(255,255,255,0.55)" />
+                  <circle cx="68" cy="80" r="1" fill="#9080a8" />
+                  <circle cx="72" cy="78" r="1" fill="#9080a8" />
+                </g>
+
+                <g>
+                  <rect x="20" y="104" width="22" height="22" rx="2.5" fill="#fff9ec" stroke="#c8a878"
+                    stroke-width="0.9" />
+                  <rect x="19" y="101" width="24" height="4" rx="1" fill="#5a4030" />
+                  <rect x="19.5" y="101.5" width="23" height="1.2" rx="0.6" fill="#7a5a40" />
+                  <ellipse cx="25" cy="111" rx="2" ry="3" fill="rgba(255,255,255,0.7)" />
+                  <circle cx="27" cy="118" r="0.6" fill="#e8c89c" />
+                  <circle cx="31" cy="120" r="0.6" fill="#e8c89c" />
+                  <circle cx="35" cy="118" r="0.6" fill="#e8c89c" />
+                  <circle cx="29" cy="122" r="0.6" fill="#e8c89c" />
+                  <circle cx="33" cy="123" r="0.6" fill="#e8c89c" />
+
+                  <rect x="50" y="106" width="28" height="20" rx="2.5" fill="#b8e0c8" stroke="#5fb088"
+                    stroke-width="0.9" />
+                  <rect x="49" y="103" width="30" height="4" rx="1" fill="#5a4030" />
+                  <rect x="49.5" y="103.5" width="29" height="1.2" rx="0.6" fill="#7a5a40" />
+                  <ellipse cx="56" cy="113" rx="2.2" ry="2.8" fill="rgba(255,255,255,0.6)" />
+                  <ellipse cx="58" cy="120" rx="1.5" ry="0.9" fill="#7a5028" />
+                  <ellipse cx="63" cy="121" rx="1.5" ry="0.9" fill="#7a5028" />
+                  <ellipse cx="68" cy="119" rx="1.5" ry="0.9" fill="#7a5028" />
+                  <ellipse cx="72" cy="121" rx="1.5" ry="0.9" fill="#7a5028" />
+                </g>
+
+                <rect x="11" y="9" width="78" height="117" rx="4" fill="url(#cabGlass)" opacity="0.4"
+                  pointer-events="none" />
+                <line x1="50" y1="9" x2="50" y2="126" stroke="#a07840" stroke-width="0.8" opacity="0.55" />
+                <rect x="46" y="64" width="3" height="14" rx="1" fill="#7a4f25" />
+                <rect x="51" y="64" width="3" height="14" rx="1" fill="#7a4f25" />
+                <rect x="46.5" y="64.5" width="1.2" height="13" rx="0.5" fill="#a07840" />
+                <rect x="51.5" y="64.5" width="1.2" height="13" rx="0.5" fill="#a07840" />
+
+                <rect x="9" y="129" width="10" height="6" rx="2" fill="#7a4f25" />
+                <rect x="81" y="129" width="10" height="6" rx="2" fill="#7a4f25" />
+              </svg>
+            </span>
+            <span class="zone-tag">
+              <span class="zone-title" data-i18n="zoneJar">Dry storage</span>
+              <span class="zone-sub" data-i18n="zoneJarHint">Sealed jars &amp; boxes</span>
+            </span>
+          </button>
+
+          <button type="button" class="floor-zone trash-zone drop-zone pos-trash" id="zoneTrash" data-zone="trash"
+            aria-label="Trash">
+            <span class="sprite sprite-trash" aria-hidden="true">
+              <svg viewBox="0 0 70 90" preserveAspectRatio="xMidYMax meet" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="binBody" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#f6efe2" />
+                    <stop offset="100%" stop-color="#cfc1aa" />
+                  </linearGradient>
+                  <linearGradient id="binLid" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#fff8ec" />
+                    <stop offset="100%" stop-color="#c0b298" />
+                  </linearGradient>
+                  <linearGradient id="binShine" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0%" stop-color="rgba(255,255,255,0.7)" />
+                    <stop offset="100%" stop-color="rgba(255,255,255,0)" />
+                  </linearGradient>
+                </defs>
+                <ellipse cx="35" cy="86" rx="28" ry="3" fill="rgba(74,53,40,0.22)" />
+                <path d="M12 24 L58 24 L55 82 Q55 84 53 84 L17 84 Q15 84 15 82 Z" fill="url(#binBody)" stroke="#8c7a62"
+                  stroke-width="1.3" />
+                <path d="M16 28 L20 28 L19 80 L17 80 Z" fill="url(#binShine)" opacity="0.7" />
+                <line x1="14" y1="44" x2="56" y2="44" stroke="rgba(74,53,40,0.18)" stroke-width="0.6" />
+                <line x1="14" y1="64" x2="56" y2="64" stroke="rgba(74,53,40,0.18)" stroke-width="0.6" />
+                <g transform="translate(35,54)">
+                  <circle r="7" fill="rgba(255,255,255,0.7)" stroke="#5fb088" stroke-width="0.9" />
+                  <path d="M-3 -1.5 L0 -3.5 L3 -1.5 M0 -3.5 L0 1.5 M-2 1 L0 3 L2 1 M-3 1 L-1 3 L1 1" stroke="#5fb088"
+                    stroke-width="0.9" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+                </g>
+                <ellipse cx="35" cy="22" rx="25" ry="5.5" fill="#9a8473" opacity="0.5" />
+                <ellipse cx="35" cy="20" rx="25" ry="5.5" fill="url(#binLid)" stroke="#7a6453" stroke-width="1.3" />
+                <ellipse cx="28" cy="17.5" rx="11" ry="1.6" fill="rgba(255,255,255,0.8)" />
+                <ellipse cx="35" cy="14" rx="6" ry="1.8" fill="#9a8473" />
+                <ellipse cx="35" cy="13" rx="6" ry="1.8" fill="#cfb89c" stroke="#7a6453" stroke-width="0.8" />
+                <rect x="32" y="9.5" width="6" height="3.5" rx="1.5" fill="#cfb89c" stroke="#7a6453"
+                  stroke-width="0.8" />
+                <ellipse cx="33" cy="11" rx="2" ry="0.5" fill="rgba(255,255,255,0.7)" />
+                <rect x="55" y="78" width="10" height="2.5" rx="1.2" fill="#9a8473" stroke="#6f5444"
+                  stroke-width="0.6" />
+                <rect x="56" y="80" width="3" height="6" rx="1" fill="#7a6453" />
+              </svg>
+            </span>
+            <span class="zone-tag">
               <span class="zone-title" data-i18n="zoneTrash">Trash</span>
               <span class="zone-sub" data-i18n="zoneTrashHint">Spoiled only</span>
-            </div>
-          </div>
-        </div>
+            </span>
+          </button>
 
-        <!-- corner plant -->
-        <div class="deco corner-plant" aria-hidden="true">
-          <span class="plant-leaves">🪴</span>
+          <!-- Puddles spawn anywhere on open floor -->
+          <div id="puddlesLayer" class="puddles-layer"></div>
+
+          <!-- Chef walker — moves freely in 2D floor space via JS -->
+          <div class="chef-walker" id="chefWalker" aria-hidden="true">
+            <span class="chef-shadow"></span>
+            <svg class="chef-sprite" id="chefSprite" viewBox="0 0 64 96" xmlns="http://www.w3.org/2000/svg"
+              preserveAspectRatio="xMidYMid meet">
+              <!-- ===== LEGS / SHOES ===== -->
+              <rect x="25" y="73" width="5" height="13" rx="2" fill="#5a3a30" />
+              <rect x="34" y="73" width="5" height="13" rx="2" fill="#5a3a30" />
+              <ellipse cx="27.5" cy="86" rx="4" ry="2.5" fill="#2a1a18" />
+              <ellipse cx="36.5" cy="86" rx="4" ry="2.5" fill="#2a1a18" />
+
+              <!-- ===== BODY (jacket + pink apron) ===== -->
+              <path d="M19 50 Q19 47 23 47 H41 Q45 47 45 50 V73 H19 Z" fill="#fff" stroke="#dac8b0"
+                stroke-width="0.5" />
+              <path d="M22 53 H42 L40 73 H24 Z" fill="#ff90a8" />
+              <rect x="20" y="63" width="24" height="2.5" rx="1" fill="#d96080" />
+              <circle cx="32" cy="51" r="1" fill="#ffb0c4" />
+              <circle cx="32" cy="56" r="1" fill="#ffb0c4" />
+
+              <!-- ===== ARMS / HANDS ===== -->
+              <ellipse cx="18" cy="57" rx="3" ry="7" fill="#fff" stroke="#dac8b0" stroke-width="0.3" />
+              <ellipse cx="46" cy="57" rx="3" ry="7" fill="#fff" stroke="#dac8b0" stroke-width="0.3" />
+              <circle cx="18" cy="63" r="3" fill="#fde0bd" stroke="#e0c498" stroke-width="0.3" />
+              <circle cx="46" cy="63" r="3" fill="#fde0bd" stroke="#e0c498" stroke-width="0.3" />
+
+              <!-- ===== HEAD: hair back layer ===== -->
+              <path d="M16 30 Q14 16 24 11 Q32 7 40 11 Q50 16 48 30 L46 28 Q42 19 32 19 Q22 19 18 28 Z"
+                fill="#ffa0c0" />
+
+              <!-- ===== FACE (peach skin) ===== -->
+              <ellipse cx="32" cy="33" rx="13" ry="13" fill="#fde0bd" stroke="#e0c498" stroke-width="0.4" />
+
+              <!-- Side hair locks (in front of cheeks) -->
+              <path d="M16 30 Q15 38 18 42 L20.5 38 Q20.5 33 20 30 Q18 28 16 30 Z" fill="#ffa0c0" />
+              <path d="M48 30 Q49 38 46 42 L43.5 38 Q43.5 33 44 30 Q46 28 48 30 Z" fill="#ffa0c0" />
+
+              <!-- Front bangs -->
+              <path
+                d="M19 22 Q24 18 30 21 Q32 19 34 21 Q40 18 45 22 Q44 28 41 28 Q38 22 33 24 Q31 23 30 23 Q28 22 26 24 Q22 22 19 28 Q17 25 19 22 Z"
+                fill="#ff85b0" />
+
+              <!-- ===== CHEF HAT ===== -->
+              <ellipse cx="32" cy="19" rx="14.5" ry="3.5" fill="#fff" stroke="#dac8b0" stroke-width="0.5" />
+              <ellipse cx="32" cy="19.5" rx="13" ry="1.6" fill="#ffc8d8" />
+              <ellipse cx="32" cy="11" rx="12" ry="8" fill="#fff" stroke="#dac8b0" stroke-width="0.4" />
+              <ellipse cx="22" cy="9" rx="6.5" ry="5" fill="#fff" stroke="#ebdfca" stroke-width="0.3" />
+              <ellipse cx="42" cy="9" rx="6.5" ry="5" fill="#fff" stroke="#ebdfca" stroke-width="0.3" />
+              <ellipse cx="32" cy="5" rx="6" ry="4.2" fill="#fff" stroke="#ebdfca" stroke-width="0.3" />
+
+              <!-- ===== EYEBROWS ===== -->
+              <path d="M22 28 Q25 27 28 28" stroke="#c87890" stroke-width="1.3" fill="none" stroke-linecap="round" />
+              <path d="M36 28 Q39 27 42 28" stroke="#c87890" stroke-width="1.3" fill="none" stroke-linecap="round" />
+
+              <!-- ===== EYES (big anime sparkly) ===== -->
+              <!-- Sclera -->
+              <ellipse cx="25.5" cy="34.5" rx="3.2" ry="4.2" fill="#fff" />
+              <ellipse cx="38.5" cy="34.5" rx="3.2" ry="4.2" fill="#fff" />
+              <!-- Iris top (warm brown) -->
+              <ellipse cx="25.5" cy="35" rx="2.6" ry="3.6" fill="#b8703c" />
+              <ellipse cx="38.5" cy="35" rx="2.6" ry="3.6" fill="#b8703c" />
+              <!-- Iris bottom darker -->
+              <ellipse cx="25.5" cy="36.6" rx="2.6" ry="2" fill="#6a3a20" />
+              <ellipse cx="38.5" cy="36.6" rx="2.6" ry="2" fill="#6a3a20" />
+              <!-- Pupil -->
+              <ellipse cx="25.5" cy="35.6" rx="1.3" ry="2.6" fill="#1a0508" />
+              <ellipse cx="38.5" cy="35.6" rx="1.3" ry="2.6" fill="#1a0508" />
+              <!-- Big sparkle highlight -->
+              <ellipse cx="24.4" cy="33" rx="1.5" ry="1.2" fill="#fff" />
+              <ellipse cx="37.4" cy="33" rx="1.5" ry="1.2" fill="#fff" />
+              <!-- Small sparkle -->
+              <circle cx="26.6" cy="36.7" r="0.65" fill="#fff" />
+              <circle cx="39.6" cy="36.7" r="0.65" fill="#fff" />
+              <!-- Eye outline (subtle) -->
+              <ellipse cx="25.5" cy="34.5" rx="3.2" ry="4.2" fill="none" stroke="#3a1818" stroke-width="0.3"
+                opacity="0.5" />
+              <ellipse cx="38.5" cy="34.5" rx="3.2" ry="4.2" fill="none" stroke="#3a1818" stroke-width="0.3"
+                opacity="0.5" />
+
+              <!-- ===== BLUSH ===== -->
+              <ellipse cx="21" cy="38.5" rx="3.5" ry="2" fill="#ff90a8" opacity="0.55" />
+              <ellipse cx="43" cy="38.5" rx="3.5" ry="2" fill="#ff90a8" opacity="0.55" />
+
+              <!-- ===== MOUTH (small smile) ===== -->
+              <path d="M30 40.5 Q32 42.8 34 40.5" stroke="#a04050" stroke-width="1.2" fill="none" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
+            <span class="chef-carry" id="chefCarry"></span>
+          </div>
+
+          <!-- CANNED PANTRY — bottom center, sealed cans & bottles -->
+          <button type="button" class="furniture iso-canned drop-zone pos-canned" id="zoneCanned" data-zone="canned"
+            aria-label="Canned pantry">
+            <span class="sprite sprite-canned" aria-hidden="true">
+              <svg viewBox="0 0 90 110" preserveAspectRatio="xMidYMax meet" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="cannedFrame" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#e8c89c" />
+                    <stop offset="100%" stop-color="#a87440" />
+                  </linearGradient>
+                  <linearGradient id="cannedInside" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#fdf0d8" />
+                    <stop offset="100%" stop-color="#f0d4a0" />
+                  </linearGradient>
+                  <linearGradient id="canBody1" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#ff9f8a" />
+                    <stop offset="100%" stop-color="#cc6648" />
+                  </linearGradient>
+                  <linearGradient id="canBody2" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#ffd97a" />
+                    <stop offset="100%" stop-color="#c89018" />
+                  </linearGradient>
+                  <linearGradient id="canBody3" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#a8d4f0" />
+                    <stop offset="100%" stop-color="#5a90b8" />
+                  </linearGradient>
+                </defs>
+                <ellipse cx="45" cy="106" rx="38" ry="3" fill="rgba(74,53,40,0.22)" />
+                <rect x="4" y="4" width="82" height="98" rx="8" fill="url(#cannedFrame)" stroke="#7a4f25"
+                  stroke-width="1.4" />
+                <rect x="9" y="9" width="72" height="88" rx="4" fill="url(#cannedInside)" stroke="#a07840"
+                  stroke-width="0.8" />
+                <rect x="9" y="50" width="72" height="3" fill="#a07840" />
+
+                <!-- Top shelf: row of cans -->
+                <g>
+                  <rect x="14" y="20" width="14" height="26" rx="2" fill="url(#canBody1)" stroke="#8a3a25"
+                    stroke-width="0.8" />
+                  <ellipse cx="21" cy="20" rx="7" ry="2.2" fill="#e8d8c0" stroke="#8a3a25" stroke-width="0.8" />
+                  <rect x="14" y="28" width="14" height="3" fill="#fff" opacity="0.85" />
+                  <rect x="14" y="36" width="14" height="2" fill="#fff" opacity="0.6" />
+
+                  <rect x="32" y="20" width="14" height="26" rx="2" fill="url(#canBody2)" stroke="#9a6818"
+                    stroke-width="0.8" />
+                  <ellipse cx="39" cy="20" rx="7" ry="2.2" fill="#e8d8c0" stroke="#9a6818" stroke-width="0.8" />
+                  <rect x="32" y="28" width="14" height="3" fill="#fff" opacity="0.85" />
+
+                  <rect x="50" y="20" width="14" height="26" rx="2" fill="url(#canBody3)" stroke="#3e6480"
+                    stroke-width="0.8" />
+                  <ellipse cx="57" cy="20" rx="7" ry="2.2" fill="#e8d8c0" stroke="#3e6480" stroke-width="0.8" />
+                  <rect x="50" y="28" width="14" height="3" fill="#fff" opacity="0.85" />
+
+                  <!-- Tall fish-sauce style bottle on far right -->
+                  <rect x="68" y="16" width="9" height="30" rx="2" fill="#7a4f25" stroke="#3a2010" stroke-width="0.7" />
+                  <rect x="70" y="14" width="5" height="4" rx="1" fill="#3a2010" />
+                  <rect x="69" y="22" width="7" height="6" rx="1" fill="#fef0d4" />
+                </g>
+
+                <!-- Bottom shelf: more cans -->
+                <g>
+                  <rect x="14" y="60" width="16" height="32" rx="2" fill="url(#canBody2)" stroke="#9a6818"
+                    stroke-width="0.8" />
+                  <ellipse cx="22" cy="60" rx="8" ry="2.4" fill="#e8d8c0" stroke="#9a6818" stroke-width="0.8" />
+                  <rect x="14" y="70" width="16" height="3" fill="#fff" opacity="0.85" />
+                  <rect x="14" y="78" width="16" height="2" fill="#fff" opacity="0.55" />
+
+                  <rect x="34" y="60" width="16" height="32" rx="2" fill="url(#canBody1)" stroke="#8a3a25"
+                    stroke-width="0.8" />
+                  <ellipse cx="42" cy="60" rx="8" ry="2.4" fill="#e8d8c0" stroke="#8a3a25" stroke-width="0.8" />
+                  <rect x="34" y="70" width="16" height="3" fill="#fff" opacity="0.85" />
+
+                  <rect x="54" y="62" width="22" height="30" rx="3" fill="#b8e0c8" stroke="#5fb088"
+                    stroke-width="0.8" />
+                  <ellipse cx="65" cy="62" rx="11" ry="2.4" fill="#5a4030" />
+                  <rect x="54" y="72" width="22" height="3" fill="#fff" opacity="0.7" />
+                </g>
+
+                <line x1="45" y1="9" x2="45" y2="97" stroke="#a07840" stroke-width="0.6" opacity="0.4" />
+                <rect x="4" y="100" width="10" height="6" rx="2" fill="#7a4f25" />
+                <rect x="76" y="100" width="10" height="6" rx="2" fill="#7a4f25" />
+              </svg>
+            </span>
+            <span class="zone-tag">
+              <span class="zone-title" data-i18n="zoneCanned">Canned pantry</span>
+              <span class="zone-sub" data-i18n="zoneCannedHint">Sealed cans &amp; bottles</span>
+            </span>
+          </button>
         </div>
       </section>
 
       <!-- ============== SIDE PANEL ============== -->
       <aside class="side-panel">
         <div class="panel-head">
-          <span aria-hidden="true">🏆</span>
+          <span class="panel-icon icon-trophy" aria-hidden="true"></span>
           <h2 data-i18n="panelHighScores">Top 5</h2>
         </div>
         <ol id="highScoreList" class="high-list"></ol>
         <p class="muted small" data-i18n="highScoreNote">Saved on this device only.</p>
+
       </aside>
     </main>
 
@@ -283,18 +682,23 @@
           </fieldset>
           <fieldset>
             <legend data-i18n="setDifficulty">Difficulty</legend>
-            <label class="radio-row"><input type="radio" name="difficulty" value="easy" /> <span data-i18n="diffEasy">Easy</span></label>
-            <label class="radio-row"><input type="radio" name="difficulty" value="normal" /> <span data-i18n="diffNormal">Normal</span></label>
-            <label class="radio-row"><input type="radio" name="difficulty" value="hard" /> <span data-i18n="diffHard">Hard</span></label>
+            <label class="radio-row"><input type="radio" name="difficulty" value="easy" /> <span
+                data-i18n="diffEasy">Easy</span></label>
+            <label class="radio-row"><input type="radio" name="difficulty" value="normal" /> <span
+                data-i18n="diffNormal">Normal</span></label>
+            <label class="radio-row"><input type="radio" name="difficulty" value="hard" /> <span
+                data-i18n="diffHard">Hard</span></label>
           </fieldset>
           <fieldset>
             <legend data-i18n="setWin">Win condition</legend>
-            <label class="radio-row"><input type="radio" name="winMode" value="score" /> <span data-i18n="winByScore">Reach score</span></label>
+            <label class="radio-row"><input type="radio" name="winMode" value="score" /> <span
+                data-i18n="winByScore">Reach score</span></label>
             <label class="row-input">
-              <span data-i18n="labelTargetScore">Target score</span>
-              <input type="number" id="inputTargetScore" min="100" max="99999" step="50" value="1000" />
+              <span data-i18n="labelTargetScore">Target net saved</span>
+              <input type="number" id="inputTargetScore" min="5" max="200" step="1" value="25" />
             </label>
-            <label class="radio-row"><input type="radio" name="winMode" value="time" /> <span data-i18n="winByTime">Survive for (minutes)</span></label>
+            <label class="radio-row"><input type="radio" name="winMode" value="time" /> <span
+                data-i18n="winByTime">Survive for (minutes)</span></label>
             <label class="row-input">
               <span data-i18n="labelTargetMinutes">Minutes</span>
               <input type="number" id="inputTargetMinutes" min="1" max="60" step="1" value="3" />
@@ -325,7 +729,7 @@
     <!-- ============== End-of-game overlay ============== -->
     <div id="overlayEnd" class="overlay" hidden>
       <div class="overlay-card">
-        <div class="overlay-emoji" aria-hidden="true">🍀</div>
+        <div class="overlay-emoji" aria-hidden="true"></div>
         <h2 id="endTitle"></h2>
         <p id="endMessage" class="end-msg"></p>
         <button type="button" id="btnOverlayClose" class="btn primary" data-i18n="btnPlayAgain">Play again</button>
@@ -336,6 +740,8 @@
   <script src="js/i18n.js"></script>
   <script src="js/storage.js"></script>
   <script src="js/foods.js"></script>
+  <script src="js/sprite.js"></script>
   <script src="js/app.js"></script>
 </body>
+
 </html>

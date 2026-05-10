@@ -1,73 +1,85 @@
 /* ====================================================================
-   Pastel cute isometric kitchen — pure CSS, emoji-driven
-   Palette: cream, mint, blush, peach, sage, sky
+   Cute kitchen — soft 2D side-view (Animal Restaurant inspired)
+   Style: rounded shapes, pastel palette, warm lighting, bouncy motion
+   Vietnamese-friendly fonts: Baloo 2 (display), Quicksand (body)
    ==================================================================== */
 
 :root {
-  /* Pastel surfaces */
-  --cream: #fff8f0;
-  --cream-2: #fdeedd;
-  --mint: #d8ecdf;
-  --mint-2: #b9dcc6;
-  --sage: #9bc2ad;
-  --sage-deep: #6ea58a;
-  --blush: #ffe2d6;
-  --blush-2: #ffc9b7;
-  --peach: #ffd1a8;
-  --rose: #f4a8a8;
-  --honey: #ffd982;
-  --sky: #dbeefa;
-  --sky-2: #b8dcef;
-  --sky-deep: #8cc3dc;
-  --lav: #ebdcf5;
+  /* Background */
+  --bg-page-1: #fff4e0;
+  --bg-page-2: #ffe1c2;
+  --bg-page-3: #ffd2a3;
 
-  /* Wood / metal / surfaces */
-  --wood-l: #f0d9b5;
-  --wood-m: #d9b182;
-  --wood-d: #b08654;
-  --steel-l: #ecf1f5;
-  --steel-m: #d2dbe4;
-  --steel-d: #9eaab9;
-  --marble: #faf6ee;
-  --marble-vein: #e8e0d0;
+  /* Scene layers */
+  --sky-1: #ffd9a5;
+  --sky-2: #ffe9c8;
+  --wall-1: #fff0d8;
+  --wall-2: #ffdfb0;
+  --wall-line: #e8b878;
+  --floor-1: #e8c896;
+  --floor-2: #d4a875;
+  --floor-line: #b08858;
 
-  /* Text */
-  --ink: #2e3346;
-  --ink-2: #555c70;
-  --ink-3: #8a92a5;
+  /* Surfaces */
+  --cream: #fff9ec;
+  --cream-2: #ffefd0;
+  --peach: #ffc8a0;
+  --peach-2: #ffb085;
+  --peach-d: #d97a4f;
+  --rose: #ff8fa3;
+  --rose-d: #e36a82;
+  --mint: #b8e0c8;
+  --mint-d: #6fbf95;
+  --sky: #cce6f5;
+  --sky-d: #8cbcd8;
+  --honey: #ffd97a;
+  --honey-d: #e2a920;
+  --lavender: #e0d4f0;
+  --stone: #e0d8cc;
+  --stone-d: #aaa090;
+
+  --wood-l: #e8c89c;
+  --wood-m: #c89868;
+  --wood-d: #8a5e35;
+
+  /* Ink (warm brown, not harsh black) */
+  --ink: #4a3528;
+  --ink-2: #6f5444;
+  --ink-3: #9a8473;
+  --white: #ffffff;
 
   /* Functional */
-  --primary: #76b9a4;
-  --primary-d: #4f9685;
-  --primary-soft: #d8ece4;
-  --on-primary: #ffffff;
-  --danger: #e89696;
-  --danger-soft: #fde0e0;
-  --warn: #f0c870;
+  --hum-fill: linear-gradient(180deg, #c8e0f0 0%, #88b8d8 100%);
+  --hum-track: #f0e6dc;
+  --hyg-fill: linear-gradient(180deg, #c8eed8 0%, #7ac698 100%);
+  --hyg-track: #f0e6dc;
 
-  /* Meters */
-  --humidity-fill: linear-gradient(90deg, #a8d6ee, #6ab5db);
-  --humidity-track: #e8f1f8;
-  --hygiene-fill: linear-gradient(90deg, #b0e0c8, #6ec496);
-  --hygiene-track: #e3f1ea;
-
-  /* Shadows */
-  --sh-soft: 0 2px 4px rgba(58, 70, 96, 0.05), 0 6px 18px rgba(58, 70, 96, 0.08);
-  --sh-pop: 0 6px 14px rgba(58, 70, 96, 0.08), 0 14px 32px rgba(58, 70, 96, 0.14);
-  --sh-iso: 5px 6px 0 rgba(58, 70, 96, 0.1);
-  --sh-inset: inset 0 2px 0 rgba(255, 255, 255, 0.55);
+  /* Shadows — soft, multi-layer */
+  --sh-soft: 0 2px 4px rgba(74, 53, 40, 0.06), 0 8px 24px rgba(74, 53, 40, 0.10);
+  --sh-pop: 0 4px 8px rgba(74, 53, 40, 0.08), 0 14px 36px rgba(74, 53, 40, 0.16);
+  --sh-lift: 0 6px 0 rgba(74, 53, 40, 0.12), 0 14px 30px rgba(74, 53, 40, 0.18);
+  --sh-inset: inset 0 2px 0 rgba(255, 255, 255, 0.6);
 
   /* Radii */
+  --r-xs: 8px;
   --r-sm: 14px;
   --r-md: 22px;
   --r-lg: 32px;
+  --r-xl: 44px;
   --r-pill: 999px;
 
-  --font-display: "Fredoka", "Quicksand", system-ui, sans-serif;
-  --font-body: "Quicksand", system-ui, -apple-system, sans-serif;
+  /* Easing */
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+
+  /* Fonts */
+  --font-display: "Baloo 2", "Fredoka", "Quicksand", system-ui, sans-serif;
+  --font-body: "Quicksand", "Baloo 2", system-ui, sans-serif;
 
   font-family: var(--font-body);
-  accent-color: var(--primary);
+  accent-color: var(--rose);
+  color: var(--ink);
 }
 
 *,
@@ -87,27 +99,30 @@ body {
   color: var(--ink);
   background:
     radial-gradient(1200px 600px at 80% -10%, #ffe7d0 0%, transparent 60%),
-    radial-gradient(900px 500px at -10% 20%, #e1f0e6 0%, transparent 55%),
-    linear-gradient(170deg, #fff5e6 0%, #ffe9d6 45%, #f7e0c8 100%);
+    radial-gradient(900px 500px at -10% 30%, #ffe9d2 0%, transparent 55%),
+    linear-gradient(170deg, var(--bg-page-1) 0%, var(--bg-page-2) 50%, var(--bg-page-3) 100%);
   background-attachment: fixed;
   font-weight: 500;
+  letter-spacing: 0.01em;
 }
 
 #app {
-  max-width: 1200px;
+  max-width: 1280px;
   margin: 0 auto;
-  padding: 1rem 1rem max(1rem, env(safe-area-inset-bottom));
+  padding: 0.85rem 0.85rem max(0.85rem, env(safe-area-inset-bottom));
 }
 
-/* ===================== HUD ===================== */
+/* ==================================================================
+   HUD — soft rounded card with cute icons
+   ================================================================== */
 .hud {
   background: linear-gradient(180deg, #ffffff 0%, var(--cream) 100%);
   border-radius: var(--r-lg);
-  padding: 1rem 1.25rem;
+  padding: 0.95rem 1.15rem;
   box-shadow: var(--sh-soft);
   border: 2px solid #fff;
-  outline: 1px solid rgba(180, 160, 140, 0.18);
-  margin-bottom: 1rem;
+  outline: 1px solid rgba(180, 140, 100, 0.18);
+  margin-bottom: 0.85rem;
   display: grid;
   grid-template-columns: 1fr;
   gap: 0.85rem;
@@ -117,15 +132,27 @@ body {
   .hud {
     grid-template-columns: auto 1fr auto;
     align-items: center;
-    gap: 1rem 1.4rem;
+    gap: 0.95rem 1.3rem;
     grid-template-areas:
       "brand   stats   actions"
       "meters  meters  meters";
   }
-  .hud-brand { grid-area: brand; }
-  .hud-stats { grid-area: stats; }
-  .hud-actions { grid-area: actions; }
-  .hud-meters { grid-area: meters; }
+
+  .hud-brand {
+    grid-area: brand;
+  }
+
+  .hud-stats {
+    grid-area: stats;
+  }
+
+  .hud-actions {
+    grid-area: actions;
+  }
+
+  .hud-meters {
+    grid-area: meters;
+  }
 }
 
 .hud-brand {
@@ -134,30 +161,73 @@ body {
   gap: 0.65rem;
 }
 
-.brand-emoji {
-  font-size: 1.7rem;
-  filter: drop-shadow(0 2px 0 rgba(180, 100, 60, 0.15));
-  animation: brand-bob 4.5s ease-in-out infinite;
+.brand-sprite {
+  width: 36px;
+  height: 36px;
+  background-image: url('assets/ui/logo-pan.png');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  flex-shrink: 0;
+  animation: brand-bob 3.5s ease-in-out infinite;
 }
 
-body.reduce-motion .brand-emoji { animation: none; }
+/* Cute frying-pan fallback */
+.brand-sprite::before {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  background:
+    radial-gradient(circle at 50% 55%, var(--ink) 28%, transparent 29%),
+    radial-gradient(circle at 50% 50%, var(--peach-d) 36%, transparent 37%),
+    radial-gradient(circle at 50% 50%, var(--peach) 44%, transparent 45%);
+  border-radius: 50%;
+  z-index: -1;
+}
+
+.brand-sprite::after {
+  content: "";
+  position: absolute;
+  width: 14px;
+  height: 4px;
+  background: var(--wood-d);
+  border-radius: 0 4px 4px 0;
+  right: -8px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: -1;
+}
 
 @keyframes brand-bob {
-  0%, 100% { transform: translateY(0) rotate(-3deg); }
-  50% { transform: translateY(-3px) rotate(3deg); }
+
+  0%,
+  100% {
+    transform: translateY(0) rotate(-3deg);
+  }
+
+  50% {
+    transform: translateY(-3px) rotate(3deg);
+  }
+}
+
+body.reduce-motion .brand-sprite {
+  animation: none;
 }
 
 .game-title {
   margin: 0;
   font-family: var(--font-display);
-  font-size: clamp(1rem, 2.2vw, 1.25rem);
-  font-weight: 600;
-  letter-spacing: -0.01em;
+  font-size: clamp(1rem, 2.2vw, 1.3rem);
+  font-weight: 700;
+  letter-spacing: 0;
   line-height: 1.2;
   color: var(--ink);
 }
 
-/* Stats */
+/* ==================================================================
+   STAT CHIPS — pill-shaped soft badges
+   ================================================================== */
 .hud-stats {
   display: flex;
   flex-wrap: wrap;
@@ -168,32 +238,133 @@ body.reduce-motion .brand-emoji { animation: none; }
 .stat-chip {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.55rem;
   background: linear-gradient(180deg, #fff 0%, var(--cream-2) 100%);
-  border: 1.5px solid rgba(180, 140, 100, 0.18);
+  border: 1.5px solid rgba(180, 140, 100, 0.22);
   border-radius: var(--r-pill);
-  padding: 0.4rem 0.85rem 0.4rem 0.55rem;
+  padding: 0.4rem 0.95rem 0.4rem 0.5rem;
   box-shadow: var(--sh-soft), var(--sh-inset);
   font-variant-numeric: tabular-nums;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--ink);
 }
 
-.stat-chip[hidden] { display: none; }
+.stat-chip[hidden] {
+  display: none;
+}
 
-.score-chip { background: linear-gradient(180deg, #fff7df 0%, #ffe8a3 100%); }
-.timer-chip { background: linear-gradient(180deg, #e7f0ff 0%, #c9dcf8 100%); }
+.score-chip {
+  background: linear-gradient(180deg, #fff7df 0%, #ffd97a 100%);
+}
+
+.timer-chip {
+  background: linear-gradient(180deg, #e7f0ff 0%, #c9dcf8 100%);
+}
+
+.saved-chip {
+  background: linear-gradient(180deg, #e8f7ec 0%, #b8e0c8 100%);
+}
+
+.wasted-chip {
+  background: linear-gradient(180deg, #ffe8ec 0%, #ffb8c4 100%);
+}
+
+.clock-chip {
+  background: linear-gradient(180deg, #f3ecff 0%, #d8c8ee 100%);
+}
 
 .chip-icon {
-  font-size: 1.05rem;
-  width: 1.6rem;
-  height: 1.6rem;
+  width: 26px;
+  height: 26px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.85);
   border-radius: 50%;
-  border: 1px solid rgba(0, 0, 0, 0.04);
+  border: 1.5px solid rgba(74, 53, 40, 0.08);
+  flex-shrink: 0;
+  position: relative;
+}
+
+/* Cute pixel-soft icons via CSS */
+.icon-star::before {
+  content: "★";
+  font-size: 16px;
+  color: var(--honey-d);
+  filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.6));
+}
+
+.icon-goal::before {
+  content: "◎";
+  font-size: 16px;
+  color: var(--rose);
+}
+
+.icon-clock::before {
+  content: "⏱";
+  font-size: 14px;
+  color: var(--sky-d);
+}
+
+.icon-drop::before {
+  content: "💧";
+  font-size: 13px;
+  filter: hue-rotate(-10deg);
+}
+
+.icon-spark::before {
+  content: "✦";
+  font-size: 14px;
+  color: var(--mint-d);
+}
+
+.icon-fridge::before {
+  content: "🧊";
+  font-size: 12px;
+}
+
+.icon-jar::before {
+  content: "🫙";
+  font-size: 12px;
+}
+
+.icon-can::before {
+  content: "🥫";
+  font-size: 12px;
+}
+
+.icon-sun::before {
+  content: "☀️";
+  font-size: 12px;
+}
+
+.icon-trash::before {
+  content: "🗑";
+  font-size: 12px;
+}
+
+.icon-trophy::before {
+  content: "🏆";
+  font-size: 18px;
+}
+
+.icon-saved::before {
+  content: "✓";
+  font-size: 16px;
+  color: var(--mint-d);
+  font-weight: 800;
+}
+
+.icon-wasted::before {
+  content: "✕";
+  font-size: 14px;
+  color: var(--rose-d);
+  font-weight: 800;
+}
+
+.icon-hourglass::before {
+  content: "⏳";
+  font-size: 14px;
 }
 
 .chip-text {
@@ -203,7 +374,7 @@ body.reduce-motion .brand-emoji { animation: none; }
 }
 
 .chip-label {
-  font-size: 0.62rem;
+  font-size: 0.65rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -211,13 +382,16 @@ body.reduce-motion .brand-emoji { animation: none; }
 }
 
 .chip-num {
-  font-size: 0.95rem;
+  font-size: 1rem;
   font-weight: 700;
-  margin-top: 2px;
+  margin-top: 3px;
   font-family: var(--font-display);
+  color: var(--ink);
 }
 
-/* Meters */
+/* ==================================================================
+   METERS — soft rounded progress bars
+   ================================================================== */
 .hud-meters {
   display: grid;
   grid-template-columns: 1fr;
@@ -235,78 +409,107 @@ body.reduce-motion .brand-emoji { animation: none; }
   display: flex;
   align-items: center;
   gap: 0.4rem;
-  margin-bottom: 0.3rem;
+  margin-bottom: 0.25rem;
 }
 
 .meter-icon {
-  font-size: 0.95rem;
+  width: 18px;
+  height: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .meter-label {
-  font-size: 0.7rem;
+  font-size: 0.78rem;
   font-weight: 700;
   color: var(--ink-2);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.04em;
+  font-family: var(--font-display);
 }
 
 .meter-track {
-  height: 14px;
-  background: var(--humidity-track);
+  height: 18px;
+  background: var(--hum-track);
   border-radius: var(--r-pill);
   overflow: hidden;
-  border: 1.5px solid rgba(180, 160, 140, 0.18);
-  box-shadow: inset 0 2px 4px rgba(58, 70, 96, 0.08);
+  border: 1.5px solid rgba(180, 140, 100, 0.18);
+  box-shadow: inset 0 2px 4px rgba(74, 53, 40, 0.10);
   position: relative;
 }
 
 .meter:nth-child(2) .meter-track {
-  background: var(--hygiene-track);
+  background: var(--hyg-track);
 }
 
 .meter-fill {
   height: 100%;
   width: 50%;
   border-radius: var(--r-pill);
-  transition: width 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: width 0.4s var(--ease-smooth);
   position: relative;
+  box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.4);
 }
 
-body.reduce-motion .meter-fill { transition: none; }
+body.reduce-motion .meter-fill {
+  transition: none;
+}
 
 .meter-fill.humidity {
-  background: var(--humidity-fill);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  background: var(--hum-fill);
 }
 
 .meter-fill.hygiene {
-  background: var(--hygiene-fill);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  background: var(--hyg-fill);
 }
 
 .meter-fill::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: repeating-linear-gradient(
-    -45deg,
-    rgba(255, 255, 255, 0.2) 0,
-    rgba(255, 255, 255, 0.2) 6px,
-    transparent 6px,
-    transparent 12px
-  );
+  background: repeating-linear-gradient(-45deg,
+      rgba(255, 255, 255, 0.22) 0,
+      rgba(255, 255, 255, 0.22) 6px,
+      transparent 6px,
+      transparent 12px);
   border-radius: var(--r-pill);
-  opacity: 0.6;
-  animation: stripe-slide 8s linear infinite;
+  opacity: 0.7;
+  animation: stripe-slide 6s linear infinite;
 }
 
-body.reduce-motion .meter-fill::after { animation: none; }
+body.reduce-motion .meter-fill::after {
+  animation: none;
+}
 
 @keyframes stripe-slide {
-  to { background-position: 60px 0; }
+  to {
+    background-position: 60px 0;
+  }
 }
 
-/* HUD actions */
+.meter-fill.flash-loss {
+  animation: flash-red 0.4s ease 2;
+}
+
+.meter-fill.flash-gain {
+  animation: flash-green 0.4s ease 2;
+}
+
+@keyframes flash-red {
+  50% {
+    filter: brightness(1.4) hue-rotate(-15deg);
+  }
+}
+
+@keyframes flash-green {
+  50% {
+    filter: brightness(1.3);
+  }
+}
+
+/* ==================================================================
+   BUTTONS — soft pill buttons with bounce
+   ================================================================== */
 .hud-actions {
   display: flex;
   gap: 0.55rem;
@@ -316,46 +519,69 @@ body.reduce-motion .meter-fill::after { animation: none; }
 .btn {
   border: none;
   border-radius: var(--r-pill);
-  padding: 0.62rem 1.2rem;
-  font-size: 0.92rem;
+  padding: 0.7rem 1.4rem;
+  font-size: 0.95rem;
   font-family: var(--font-display);
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
   touch-action: manipulation;
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
-  transition: transform 0.15s ease, box-shadow 0.2s ease, filter 0.2s ease;
+  transition: transform 0.18s var(--ease-bounce), box-shadow 0.2s ease, filter 0.2s ease;
+  letter-spacing: 0.02em;
 }
 
-body.reduce-motion .btn { transition: none; }
+body.reduce-motion .btn {
+  transition: none;
+}
 
 .btn.primary {
-  background: linear-gradient(180deg, #88c8b3 0%, var(--primary) 60%, var(--primary-d) 100%);
-  color: var(--on-primary);
-  box-shadow: 0 4px 0 var(--primary-d), var(--sh-soft);
+  background: linear-gradient(180deg, #ffa8b8 0%, var(--rose) 60%, var(--rose-d) 100%);
+  color: #fff;
+  box-shadow: 0 5px 0 var(--rose-d), 0 8px 18px rgba(227, 106, 130, 0.35);
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.12);
 }
 
-.btn.primary:hover { filter: brightness(1.05); transform: translateY(-1px); }
-.btn.primary:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--primary-d), var(--sh-soft); }
+.btn.primary:hover {
+  filter: brightness(1.05);
+  transform: translateY(-2px);
+  box-shadow: 0 7px 0 var(--rose-d), 0 12px 22px rgba(227, 106, 130, 0.4);
+}
+
+.btn.primary:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 var(--rose-d), 0 4px 8px rgba(227, 106, 130, 0.3);
+}
 
 .btn.ghost {
-  background: #ffffff;
-  color: var(--primary-d);
-  border: 1.5px solid rgba(118, 185, 164, 0.4);
-  box-shadow: 0 3px 0 rgba(118, 185, 164, 0.25), var(--sh-soft);
+  background: linear-gradient(180deg, #fff 0%, var(--cream-2) 100%);
+  color: var(--ink);
+  border: 1.5px solid rgba(180, 140, 100, 0.3);
+  box-shadow: 0 4px 0 rgba(180, 140, 100, 0.25), var(--sh-soft);
 }
 
-.btn.ghost:hover { background: var(--primary-soft); transform: translateY(-1px); }
-.btn.ghost:active { transform: translateY(2px); box-shadow: 0 1px 0 rgba(118, 185, 164, 0.25); }
+.btn.ghost:hover {
+  background: linear-gradient(180deg, var(--cream-2) 0%, var(--peach) 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0 rgba(180, 140, 100, 0.25);
+}
+
+.btn.ghost:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 rgba(180, 140, 100, 0.2);
+}
 
 .btn:disabled {
   opacity: 0.55;
   cursor: not-allowed;
   transform: none;
+  filter: grayscale(0.3);
 }
 
-/* ===================== TIP BAR (always-visible how-to) ===================== */
+/* ==================================================================
+   TIP BAR — friendly help pills
+   ================================================================== */
 .tip-bar {
   display: flex;
   flex-wrap: wrap;
@@ -367,22 +593,22 @@ body.reduce-motion .btn { transition: none; }
 .tip-pill {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
-  background: linear-gradient(180deg, #ffffff 0%, var(--cream) 100%);
-  border: 1.5px solid rgba(180, 160, 140, 0.25);
+  gap: 0.45rem;
+  background: linear-gradient(180deg, #fff 0%, var(--cream) 100%);
+  border: 1.5px solid rgba(180, 140, 100, 0.22);
   border-radius: var(--r-pill);
-  padding: 0.42rem 0.85rem 0.42rem 0.45rem;
-  font-size: 0.78rem;
+  padding: 0.42rem 0.95rem 0.42rem 0.5rem;
+  font-size: 0.82rem;
   font-weight: 600;
   color: var(--ink);
   box-shadow: var(--sh-soft);
   font-family: var(--font-body);
-  line-height: 1.2;
+  line-height: 1.3;
 }
 
 .tip-pill .tip-icon {
-  width: 1.7rem;
-  height: 1.7rem;
+  width: 26px;
+  height: 26px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -392,155 +618,249 @@ body.reduce-motion .btn { transition: none; }
   flex-shrink: 0;
 }
 
-.tip-pill-fridge .tip-icon { background: var(--sky); }
-.tip-pill-jar .tip-icon { background: var(--honey); }
-.tip-pill-puddle .tip-icon { background: var(--sky-2); }
-.tip-pill-trash .tip-icon { background: #d8d8e0; }
-
-@media (max-width: 560px) {
-  .tip-pill { font-size: 0.7rem; padding: 0.35rem 0.65rem 0.35rem 0.4rem; }
-  .tip-pill .tip-icon { width: 1.4rem; height: 1.4rem; font-size: 0.85rem; }
+.tip-pill-fridge .tip-icon {
+  background: var(--sky);
 }
 
-/* ===================== KITCHEN LAYOUT ===================== */
+.tip-pill-jar .tip-icon {
+  background: var(--honey);
+}
+
+.tip-pill-canned .tip-icon {
+  background: #ffc0a8;
+}
+
+.tip-pill-sun .tip-icon {
+  background: #ffe89a;
+}
+
+.tip-pill-puddle .tip-icon {
+  background: #b8d8e8;
+}
+
+.tip-pill-trash .tip-icon {
+  background: var(--stone);
+}
+
+@media (max-width: 560px) {
+  .tip-pill {
+    font-size: 0.72rem;
+    padding: 0.36rem 0.75rem 0.36rem 0.4rem;
+  }
+
+  .tip-pill .tip-icon {
+    width: 22px;
+    height: 22px;
+    font-size: 0.85rem;
+  }
+}
+
+/* ==================================================================
+   KITCHEN LAYOUT
+   ================================================================== */
 .kitchen {
   display: grid;
-  gap: 1rem;
+  gap: 0.95rem;
 }
 
 @media (min-width: 980px) {
   .kitchen {
-    grid-template-columns: 1fr 240px;
+    grid-template-columns: 1fr 260px;
     align-items: start;
   }
 }
 
-/* ===================== KITCHEN SCENE ===================== */
+/* ==================================================================
+   KITCHEN SCENE — soft 2D side view
+   ================================================================== */
 .kitchen-scene {
   position: relative;
   border-radius: var(--r-lg);
-  padding: 1.25rem 1.25rem 1.5rem;
   overflow: hidden;
-  border: 2px solid #fff;
-  outline: 1px solid rgba(180, 160, 140, 0.2);
+  border: 3px solid #fff;
+  outline: 1px solid rgba(180, 140, 100, 0.2);
   box-shadow: var(--sh-pop);
-  min-height: 640px;
+  height: 680px;
   isolation: isolate;
-  background: #fff;
+  background: var(--floor-1);
 }
 
-/* Background layers */
-.bg-sky {
-  position: absolute;
-  inset: 0 0 65% 0;
-  background: linear-gradient(180deg, #fef0db 0%, #ffe1c0 100%);
-  z-index: 0;
+@media (max-width: 760px) {
+  .kitchen-scene {
+    height: 600px;
+  }
 }
 
+/* Background layers — thin wall band on top, big floor below (oblique top-down view) */
 .bg-wall {
   position: absolute;
-  inset: 0 0 35% 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 18%;
+  /* small wall band on top */
   background:
-    linear-gradient(180deg, #ffeecf 0%, #ffe1b8 50%, #f8d3a0 100%);
+    /* subtle vertical paneling */
+    repeating-linear-gradient(90deg,
+      transparent 0,
+      transparent 96px,
+      rgba(180, 130, 80, 0.08) 96px,
+      rgba(180, 130, 80, 0.08) 97px),
+    linear-gradient(180deg, var(--wall-1) 0%, var(--wall-2) 200%);
   z-index: 0;
-  overflow: hidden;
 }
 
-.wall-tiles {
+/* baseboard between wall and floor */
+.bg-wall::after {
+  content: "";
   position: absolute;
-  inset: 0;
-  background-image:
-    repeating-linear-gradient(
-      90deg,
-      rgba(255, 255, 255, 0) 0,
-      rgba(255, 255, 255, 0) 56px,
-      rgba(160, 110, 70, 0.08) 56px,
-      rgba(160, 110, 70, 0.08) 58px
-    ),
-    repeating-linear-gradient(
-      0deg,
-      rgba(255, 255, 255, 0) 0,
-      rgba(255, 255, 255, 0) 56px,
-      rgba(160, 110, 70, 0.08) 56px,
-      rgba(160, 110, 70, 0.08) 58px
-    );
-  opacity: 0.7;
+  left: 0;
+  right: 0;
+  bottom: -8px;
+  height: 14px;
+  background: linear-gradient(180deg, var(--wood-m) 0%, var(--wood-d) 100%);
+  border-radius: 4px 4px 0 0;
+  box-shadow: 0 6px 12px rgba(74, 53, 40, 0.22);
+  z-index: 1;
 }
 
 .bg-floor {
   position: absolute;
-  inset: 65% 0 0 0;
-  background: linear-gradient(180deg, #e8d2af 0%, #c9a87a 60%, #b89067 100%);
+  left: 0;
+  right: 0;
+  top: 18%;
+  /* big floor: 82% of scene */
+  bottom: 0;
+  background:
+    /* vertical wood planks (suggesting depth) */
+    repeating-linear-gradient(90deg,
+      transparent 0,
+      transparent 92px,
+      rgba(74, 53, 40, 0.18) 92px,
+      rgba(74, 53, 40, 0.18) 96px),
+    /* very subtle horizontal "perspective" hint */
+    repeating-linear-gradient(0deg,
+      transparent 0,
+      transparent 120px,
+      rgba(74, 53, 40, 0.05) 120px,
+      rgba(74, 53, 40, 0.05) 122px),
+    /* subtle radial gloss in center */
+    radial-gradient(ellipse 80% 60% at 50% 50%, rgba(255, 248, 230, 0.4) 0%, transparent 700%),
+    linear-gradient(180deg, var(--floor-1) 100%, var(--floor-2) 200%);
   z-index: 0;
-  overflow: hidden;
 }
 
-.floor-tiles {
+/* ==================================================================
+   WALL DECORATIONS — window, clock, picture, shelf
+   ================================================================== */
+.deco {
   position: absolute;
-  inset: 0;
-  background-image:
-    repeating-linear-gradient(
-      90deg,
-      rgba(80, 50, 25, 0.16) 0,
-      rgba(80, 50, 25, 0.16) 1.5px,
-      transparent 1.5px,
-      transparent 70px
-    ),
-    repeating-linear-gradient(
-      0deg,
-      rgba(80, 50, 25, 0.12) 0,
-      rgba(80, 50, 25, 0.12) 1.5px,
-      transparent 1.5px,
-      transparent 70px
-    );
-  opacity: 0.6;
+  z-index: 2;
+  pointer-events: none;
 }
 
-/* Wall decorations */
-.deco { position: absolute; z-index: 1; pointer-events: none; }
-
+/* WINDOW with sun and clouds */
 .window {
-  top: 18px;
+  top: 2%;
   left: 50%;
   transform: translateX(-50%);
-  width: 230px;
-  height: 150px;
+  width: 200px;
+  height: 88px;
+  background: linear-gradient(180deg, #fff 0%, #faf0d8 100%);
+  border: 5px solid #fff;
+  border-radius: var(--r-md);
+  box-shadow:
+    0 4px 0 rgba(180, 130, 80, 0.18),
+    0 10px 24px rgba(74, 53, 40, 0.18),
+    inset 0 0 0 2px rgba(180, 130, 80, 0.15);
+  padding: 6px;
 }
 
-.window-frame {
+.window-glass {
   width: 100%;
-  height: 130px;
-  background: linear-gradient(180deg, #c8e8f5 0%, #a4d6ec 70%, #88c4dc 100%);
-  border: 6px solid #fff;
-  border-radius: 14px 14px 6px 6px;
+  height: 100%;
+  background: linear-gradient(180deg, #ffd9a8 0%, #ffe9c0 60%, #ffd5a8 100%);
+  border-radius: var(--r-sm);
   position: relative;
-  box-shadow: 0 6px 0 rgba(170, 130, 90, 0.15), inset 0 0 0 2px rgba(140, 100, 70, 0.18);
   overflow: hidden;
+  box-shadow: inset 0 0 0 2px rgba(180, 130, 80, 0.15);
 }
 
-.window-pane {
-  position: absolute;
-  inset: 4px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, transparent 50%);
-  overflow: hidden;
-}
-
-.window-cross-h, .window-cross-v {
+.window-glass::before,
+.window-glass::after {
+  content: "";
   position: absolute;
   background: #fff;
-  box-shadow: inset 0 0 0 1px rgba(140, 100, 70, 0.18);
+  box-shadow: 0 0 0 1px rgba(180, 130, 80, 0.18);
 }
 
-.window-cross-h {
-  left: 0; right: 0; top: 50%;
-  height: 4px;
+.window-glass::before {
+  /* horizontal cross */
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 5px;
   transform: translateY(-50%);
+  border-radius: 2px;
 }
 
-.window-cross-v {
-  top: 0; bottom: 0; left: 50%;
-  width: 4px;
+.window-glass::after {
+  /* vertical cross */
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 5px;
   transform: translateX(-50%);
+  border-radius: 2px;
+}
+
+.window-sun {
+  position: absolute;
+  width: 36px;
+  height: 36px;
+  background: radial-gradient(circle, var(--honey) 0%, var(--honey-d) 80%);
+  border-radius: 50%;
+  top: 14%;
+  right: 16%;
+  box-shadow: 0 0 24px rgba(255, 217, 122, 0.55);
+  animation: sun-glow 4s ease-in-out infinite;
+}
+
+@keyframes sun-glow {
+
+  0%,
+  100% {
+    box-shadow: 0 0 24px rgba(255, 217, 122, 0.55);
+  }
+
+  50% {
+    box-shadow: 0 0 36px rgba(255, 217, 122, 0.85);
+  }
+}
+
+body.reduce-motion .window-sun {
+  animation: none;
+}
+
+.window-cloud {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: var(--r-pill);
+  filter: blur(0.5px);
+}
+
+.window-cloud.c1 {
+  width: 45px;
+  height: 14px;
+  top: 28%;
+  left: 12%;
+}
+
+.window-cloud.c2 {
+  width: 32px;
+  height: 10px;
+  top: 60%;
+  left: 55%;
 }
 
 .window-rain {
@@ -548,105 +868,115 @@ body.reduce-motion .btn { transition: none; }
   inset: 0;
   opacity: 0;
   transition: opacity 0.6s ease;
+  z-index: 1;
 }
 
-.kitchen-scene.is-damp .window-rain { opacity: 0.8; }
+.kitchen-scene.is-damp .window-rain {
+  opacity: 0.8;
+}
 
 .window-rain span {
   position: absolute;
   width: 2px;
   height: 12px;
-  background: linear-gradient(180deg, transparent, #ffffff 80%);
-  border-radius: 999px;
+  background: linear-gradient(180deg, transparent, rgba(120, 180, 220, 0.85) 80%);
+  border-radius: var(--r-pill);
   animation: rain-fall 1.4s linear infinite;
 }
 
-.window-rain span:nth-child(1) { left: 14%; animation-delay: 0s; }
-.window-rain span:nth-child(2) { left: 32%; animation-delay: 0.4s; }
-.window-rain span:nth-child(3) { left: 48%; animation-delay: 0.7s; }
-.window-rain span:nth-child(4) { left: 64%; animation-delay: 0.2s; }
-.window-rain span:nth-child(5) { left: 78%; animation-delay: 0.9s; }
-.window-rain span:nth-child(6) { left: 90%; animation-delay: 0.55s; }
+.window-rain span:nth-child(1) {
+  left: 14%;
+  animation-delay: 0s;
+}
 
-body.reduce-motion .window-rain span { animation: none; }
+.window-rain span:nth-child(2) {
+  left: 32%;
+  animation-delay: 0.4s;
+}
+
+.window-rain span:nth-child(3) {
+  left: 48%;
+  animation-delay: 0.7s;
+}
+
+.window-rain span:nth-child(4) {
+  left: 64%;
+  animation-delay: 0.2s;
+}
+
+.window-rain span:nth-child(5) {
+  left: 78%;
+  animation-delay: 0.9s;
+}
+
+.window-rain span:nth-child(6) {
+  left: 90%;
+  animation-delay: 0.55s;
+}
+
+body.reduce-motion .window-rain span {
+  animation: none;
+}
 
 @keyframes rain-fall {
-  0% { transform: translateY(-20px); opacity: 0; }
-  20% { opacity: 1; }
-  100% { transform: translateY(140px); opacity: 0; }
+  0% {
+    transform: translateY(-12px);
+    opacity: 0;
+  }
+
+  20% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(120px);
+    opacity: 0;
+  }
 }
 
-.window-sill {
-  position: absolute;
-  bottom: 0;
-  left: -10px;
-  right: -10px;
-  height: 20px;
-  background: linear-gradient(180deg, #fff 0%, #f0e0c8 100%);
-  border-radius: 6px;
-  box-shadow: 0 4px 0 rgba(170, 130, 90, 0.2);
-}
-
-.window-curtain {
-  position: absolute;
-  top: -4px;
-  width: 36px;
-  height: 134px;
-  background:
-    repeating-linear-gradient(
-      0deg,
-      #f4a8a8 0,
-      #f4a8a8 6px,
-      #ec9090 6px,
-      #ec9090 12px
-    );
-  border-radius: 8px 8px 4px 4px;
-  box-shadow: var(--sh-soft);
-}
-
-.window-curtain.left { left: -14px; transform: skewY(-2deg); }
-.window-curtain.right { right: -14px; transform: skewY(2deg); }
-
-/* Wall clock */
+/* WALL CLOCK */
 .wall-clock {
-  top: 28px;
-  right: 24px;
-  width: 70px;
-  height: 70px;
-}
-
-.clock-face {
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(circle at 30% 28%, #fff 0%, #f5e8d8 60%, #e2cfb4 100%);
-  border: 4px solid #fff;
+  top: 4%;
+  right: 4%;
+  width: 56px;
+  height: 56px;
+  background: radial-gradient(circle at 30% 25%, #fff 0%, var(--cream) 60%, var(--cream-2) 100%);
+  border: 5px solid #fff;
   border-radius: 50%;
-  box-shadow: 0 4px 0 rgba(170, 130, 90, 0.2), inset 0 0 0 2px rgba(140, 100, 70, 0.15);
-  position: relative;
+  box-shadow:
+    0 5px 0 rgba(180, 130, 80, 0.2),
+    0 10px 22px rgba(74, 53, 40, 0.18),
+    inset 0 0 0 2px rgba(180, 130, 80, 0.12);
 }
 
-.clock-face::before, .clock-face::after {
+.wall-clock::before,
+.wall-clock::after {
   content: "";
   position: absolute;
   background: var(--ink-2);
-}
-.clock-face::before { /* 12 */
-  top: 6px; left: 50%;
-  width: 3px; height: 6px;
-  transform: translateX(-50%);
   border-radius: 2px;
 }
-.clock-face::after { /* 6 */
-  bottom: 6px; left: 50%;
-  width: 3px; height: 6px;
+
+.wall-clock::before {
+  top: 8px;
+  left: 50%;
+  width: 3px;
+  height: 6px;
   transform: translateX(-50%);
-  border-radius: 2px;
+}
+
+.wall-clock::after {
+  bottom: 8px;
+  left: 50%;
+  width: 3px;
+  height: 6px;
+  transform: translateX(-50%);
 }
 
 .clock-hand {
   position: absolute;
   background: var(--ink);
-  border-radius: 999px;
+  border-radius: var(--r-pill);
   left: 50%;
   bottom: 50%;
   transform-origin: 50% 100%;
@@ -654,23 +984,18 @@ body.reduce-motion .window-rain span { animation: none; }
 
 .clock-hand.hour {
   width: 3px;
-  height: 16px;
+  height: 14px;
   margin-left: -1.5px;
-  animation: clock-hour 60s linear infinite;
+  animation: clock-rot 60s linear infinite;
 }
 
 .clock-hand.minute {
-  width: 2px;
-  height: 22px;
-  margin-left: -1px;
+  width: 2.5px;
+  height: 20px;
+  margin-left: -1.25px;
   background: var(--rose);
-  animation: clock-minute 8s linear infinite;
+  animation: clock-rot 8s linear infinite;
 }
-
-body.reduce-motion .clock-hand { animation: none; }
-
-@keyframes clock-hour { to { transform: rotate(360deg); } }
-@keyframes clock-minute { to { transform: rotate(360deg); } }
 
 .clock-pivot {
   position: absolute;
@@ -678,246 +1003,341 @@ body.reduce-motion .clock-hand { animation: none; }
   height: 6px;
   background: var(--ink);
   border-radius: 50%;
-  top: 50%; left: 50%;
+  top: 50%;
+  left: 50%;
   transform: translate(-50%, -50%);
 }
 
-/* Wall frame (decoration) */
-.wall-frame {
-  top: 36px;
-  left: 30px;
-  width: 64px;
-  height: 64px;
-  background: #fff;
-  border: 5px solid #fff;
-  border-radius: 10px;
-  box-shadow: 0 4px 0 rgba(170, 130, 90, 0.2);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.8rem;
-  background-image: linear-gradient(180deg, #ffe9c8 0%, #ffd1a0 100%);
+body.reduce-motion .clock-hand {
+  animation: none;
 }
 
-/* ===================== KITCHEN ROW (top: fridge | counter | cabinet) ===================== */
-.kitchen-row {
-  position: relative;
-  z-index: 2;
-  display: grid;
-  grid-template-columns: 168px 1fr 168px;
-  gap: 1.1rem;
-  align-items: end;
-  padding-top: 195px;
-}
-
-@media (max-width: 760px) {
-  .kitchen-row {
-    grid-template-columns: 130px 1fr 130px;
-    gap: 0.7rem;
-    padding-top: 170px;
+@keyframes clock-rot {
+  to {
+    transform: rotate(360deg);
   }
-  .kitchen-scene { padding: 1rem 0.85rem 1.25rem; min-height: 580px; }
-  .window { width: 170px; height: 120px; }
-  .window-frame { height: 100px; }
-  .wall-clock { width: 54px; height: 54px; right: 14px; top: 22px; }
-  .wall-frame { width: 48px; height: 48px; left: 14px; top: 30px; font-size: 1.4rem; }
 }
 
-/* ----- Fridge ----- */
-.iso-fridge {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  cursor: pointer;
-  transition: transform 0.18s ease;
-}
-
-.iso-fridge:hover { transform: translateY(-2px); }
-body.reduce-motion .iso-fridge:hover { transform: none; }
-
-.fridge-body {
-  width: 100%;
-  max-width: 158px;
-  aspect-ratio: 0.62;
-  background: linear-gradient(180deg, #f9fcff 0%, #e3edf6 60%, #cfdce8 100%);
-  border-radius: 18px 18px 14px 14px;
-  border: 3px solid #fff;
-  outline: 1.5px solid rgba(140, 160, 184, 0.4);
-  box-shadow:
-    8px 10px 0 rgba(140, 160, 184, 0.25),
-    var(--sh-soft),
-    inset 0 2px 0 rgba(255, 255, 255, 0.8);
+/* WALL FRAME (cute picture) */
+.wall-frame {
+  top: 4%;
+  left: 4%;
+  width: 56px;
+  height: 56px;
+  background: linear-gradient(135deg, var(--rose) 0%, var(--peach) 100%);
+  border: 6px solid #fff;
+  border-radius: var(--r-sm);
+  box-shadow: 0 5px 0 rgba(180, 130, 80, 0.18), 0 10px 20px rgba(74, 53, 40, 0.18);
   position: relative;
   overflow: hidden;
 }
 
-.fridge-top {
-  height: 38%;
-  position: relative;
-  border-bottom: 1.5px solid rgba(140, 160, 184, 0.35);
-  display: flex;
-  gap: 6px;
-  padding: 10px 8px;
-  align-items: flex-start;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, transparent 100%);
-}
-
-.fridge-magnet {
-  font-size: 0.95rem;
-  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
-}
-.fridge-magnet.small { font-size: 0.7rem; }
-
-.fridge-divider {
-  height: 4px;
-  background: rgba(120, 145, 170, 0.4);
-  margin: 0 6px;
-  border-radius: 2px;
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
-}
-
-.fridge-bottom {
-  height: 60%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2.5rem;
-  background: linear-gradient(180deg, transparent 0%, rgba(180, 210, 235, 0.3) 100%);
-}
-
-.fridge-emoji {
-  filter: drop-shadow(0 2px 4px rgba(140, 160, 184, 0.4));
-  animation: fridge-float 3.6s ease-in-out infinite;
-}
-
-body.reduce-motion .fridge-emoji { animation: none; }
-
-@keyframes fridge-float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-3px); }
-}
-
-.fridge-handle {
+.wall-frame::before {
+  /* simple heart shape */
+  content: "";
   position: absolute;
-  right: 10px;
-  width: 6px;
-  height: 32px;
-  background: linear-gradient(90deg, #d2dbe4 0%, #a8b5c2 100%);
-  border-radius: 3px;
-  box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.12);
+  top: 32%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-45deg);
+  width: 22px;
+  height: 22px;
+  background: #fff;
 }
 
-.fridge-handle.top { top: 12%; }
-.fridge-handle.bottom { top: 50%; }
-
-/* Highlight when item being dragged over */
-.iso-fridge.highlight .fridge-body {
-  border-color: var(--primary);
-  outline-color: var(--primary);
-  box-shadow:
-    8px 10px 0 var(--primary-d),
-    0 0 0 4px var(--primary-soft),
-    inset 0 2px 0 rgba(255, 255, 255, 0.8);
-  transform: translateY(-3px);
-}
-
-/* ----- Counter (center) ----- */
-.iso-counter {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-}
-
-.upper-shelf {
-  position: relative;
-  margin: 0 auto 0.8rem;
-  width: 92%;
-  max-width: 540px;
-}
-
-.shelf-board {
+.wall-frame::after {
+  content: "";
+  position: absolute;
+  top: 32%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 30px;
   height: 14px;
+  background: #fff;
+  border-radius: var(--r-pill);
+}
+
+/* WALL SHELF (with little jars) */
+.wall-shelf {
+  top: 22%;
+  right: 8%;
+  width: 110px;
+  height: 32px;
   background: linear-gradient(180deg, var(--wood-l) 0%, var(--wood-m) 100%);
   border-radius: 4px;
-  border: 1.5px solid rgba(140, 100, 70, 0.35);
-  box-shadow: 0 4px 0 rgba(140, 100, 70, 0.25), var(--sh-soft);
-}
-
-.shelf-items {
-  position: absolute;
-  bottom: 14px;
-  left: 0;
-  right: 0;
+  box-shadow: 0 3px 0 var(--wood-d), 0 6px 12px rgba(74, 53, 40, 0.18);
   display: flex;
   justify-content: space-around;
-  padding: 0 1rem;
   align-items: flex-end;
-  font-size: 1.4rem;
+  padding-bottom: 4px;
+}
+
+.shelf-jar {
+  width: 14px;
+  height: 22px;
+  border-radius: 4px 4px 6px 6px;
+  position: relative;
+  border: 1.5px solid rgba(74, 53, 40, 0.2);
+  box-shadow: inset 0 -3px 0 rgba(0, 0, 0, 0.1);
+}
+
+.shelf-jar::before {
+  content: "";
+  position: absolute;
+  top: -4px;
+  left: 1px;
+  right: 1px;
+  height: 4px;
+  background: var(--ink-2);
+  border-radius: 2px 2px 0 0;
+}
+
+.shelf-jar.j1 {
+  background: var(--mint);
+}
+
+.shelf-jar.j2 {
+  background: var(--rose);
+}
+
+.shelf-jar.j3 {
+  background: var(--honey);
+}
+
+@media (max-width: 760px) {
+  .window {
+    width: 180px;
+    height: 100px;
+  }
+
+  .wall-clock {
+    width: 50px;
+    height: 50px;
+  }
+
+  .wall-frame {
+    width: 56px;
+    height: 56px;
+  }
+
+  .wall-shelf {
+    width: 90px;
+  }
+}
+
+/* CORNER PLANT — tucked into the bottom center of the floor */
+.corner-plant {
+  bottom: 4%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 76px;
+  z-index: 6;
+  position: absolute;
   pointer-events: none;
 }
 
-.shelf-items span {
-  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.08));
-  animation: shelf-bob 5s ease-in-out infinite;
-}
-
-.shelf-items span:nth-child(2) { animation-delay: 0.5s; }
-.shelf-items span:nth-child(3) { animation-delay: 1s; }
-.shelf-items span:nth-child(4) { animation-delay: 1.5s; }
-.shelf-items span:nth-child(5) { animation-delay: 2s; }
-
-body.reduce-motion .shelf-items span { animation: none; }
-
-@keyframes shelf-bob {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-1.5px); }
-}
-
-.counter-wrap {
-  position: relative;
-  margin-top: auto;
-}
-
-.counter-surface {
-  position: relative;
+.corner-plant::before {
+  /* leaves */
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 56px;
+  height: 50px;
   background:
-    radial-gradient(ellipse at 30% 20%, rgba(255, 255, 255, 0.5) 0%, transparent 60%),
-    linear-gradient(180deg, var(--marble) 0%, #f0e7d3 100%);
-  border-radius: 8px;
-  min-height: 220px;
-  border: 2px solid rgba(140, 100, 70, 0.18);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.8),
-    inset 0 -2px 8px rgba(140, 100, 70, 0.08),
-    var(--sh-iso);
-  padding: 0.6rem;
+    radial-gradient(ellipse 18px 22px at 30% 40%, var(--mint) 60%, transparent 61%),
+    radial-gradient(ellipse 18px 22px at 70% 40%, var(--mint-d) 60%, transparent 61%),
+    radial-gradient(ellipse 14px 18px at 50% 20%, var(--mint) 60%, transparent 61%);
+}
+
+.corner-plant::after {
+  /* pot */
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 44px;
+  height: 36px;
+  background: linear-gradient(180deg, var(--peach) 0%, var(--peach-d) 100%);
+  border-radius: 6px 6px 12px 12px;
+  border: 2px solid rgba(74, 53, 40, 0.18);
+  box-shadow: 0 4px 8px rgba(74, 53, 40, 0.18);
+}
+
+/* ==================================================================
+   FLOOR STAGE — main play area (oblique top-down, U-shape kitchen)
+   Furniture absolute-positioned around the perimeter; center is open
+   floor where chef walks freely.
+   ================================================================== */
+.floor-stage {
+  position: absolute;
+  inset: 18% 0 0 0;
+  /* covers the entire floor area */
   z-index: 2;
 }
 
-/* marble veins */
-.counter-surface::before {
+.furniture {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: transparent;
+  border: none;
+  padding: 0;
+  font-family: inherit;
+  color: inherit;
+  cursor: pointer;
+  transition: transform 0.18s var(--ease-bounce), filter 0.2s ease;
+}
+
+body.reduce-motion .furniture:hover {
+  transform: none;
+}
+
+/* ===== POSITION CLASSES (U-shape kitchen layout) ===== */
+
+/* COUNTER island — back center, the big food prep area */
+.pos-counter {
+  top: 2%;
+  left: 20%;
+  width: 60%;
+  z-index: 3;
+}
+
+@media (max-width: 760px) {
+  .pos-counter {
+    left: 15%;
+    width: 70%;
+  }
+}
+
+/* FRIDGE — left wall, upper half */
+.pos-fridge {
+  top: 32%;
+  left: 2%;
+  width: 105px;
+  z-index: 4;
+}
+
+@media (max-width: 760px) {
+  .pos-fridge {
+    width: 80px;
+    left: 1%;
+    top: 30%;
+  }
+}
+
+/* JAR CABINET — right wall, upper half */
+.pos-jar {
+  top: 32%;
+  right: 2%;
+  width: 105px;
+  z-index: 4;
+}
+
+@media (max-width: 760px) {
+  .pos-jar {
+    width: 80px;
+    right: 1%;
+    top: 30%;
+  }
+}
+
+/* SINK — left wall, lower half */
+.pos-sink {
+  bottom: 6%;
+  left: 3%;
+  z-index: 5;
+}
+
+/* TRASH — right wall, lower half */
+.pos-trash {
+  bottom: 6%;
+  right: 3%;
+  z-index: 5;
+}
+
+/* ----- FRIDGE ----- */
+.sprite-fridge {
+  width: 100%;
+  height: 140px;
+  position: relative;
+  display: block;
+  filter: drop-shadow(0 6px 8px rgba(74, 53, 40, 0.18));
+}
+
+.sprite-fridge>svg,
+.sprite-cabinet>svg,
+.sprite-sink>svg,
+.sprite-trash>svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+@media (max-width: 760px) {
+  .sprite-fridge {
+    height: 110px;
+  }
+}
+
+/* ----- COUNTER (oblique top-down: top surface visible + front face) ----- */
+.iso-counter {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  cursor: default;
+}
+
+.iso-counter:hover {
+  transform: none;
+}
+
+/* COUNTER TOP — wide marble surface where food spawns */
+.counter-top {
+  position: relative;
+  height: 130px;
+  /* Marble cream gradient with soft shine, suggesting top surface viewed obliquely */
+  background:
+    radial-gradient(ellipse 70% 50% at 40% 20%, rgba(255, 255, 255, 0.6) 0%, transparent 70%),
+    linear-gradient(180deg, var(--cream) 0%, var(--cream-2) 70%, #f0d9a8 100%);
+  border-radius: var(--r-lg) var(--r-lg) 8px 8px;
+  border: 2px solid rgba(180, 130, 80, 0.32);
+  border-bottom: none;
+  box-shadow:
+    inset 0 4px 0 #fff,
+    inset 0 -3px 0 rgba(180, 130, 80, 0.18);
+  overflow: visible;
+  padding: 0.55rem 0.7rem;
+}
+
+@media (max-width: 760px) {
+  .counter-top {
+    height: 100px;
+  }
+}
+
+/* marble veining */
+.counter-top::before {
   content: "";
   position: absolute;
   inset: 0;
   background-image:
-    radial-gradient(ellipse 80px 4px at 20% 30%, rgba(190, 175, 145, 0.35), transparent 70%),
-    radial-gradient(ellipse 100px 3px at 70% 60%, rgba(190, 175, 145, 0.28), transparent 70%),
-    radial-gradient(ellipse 60px 3px at 40% 80%, rgba(190, 175, 145, 0.3), transparent 70%);
-  pointer-events: none;
+    radial-gradient(ellipse 60px 3px at 25% 35%, rgba(190, 175, 145, 0.28), transparent 70%),
+    radial-gradient(ellipse 80px 2px at 75% 65%, rgba(190, 175, 145, 0.22), transparent 70%),
+    radial-gradient(ellipse 50px 2px at 50% 50%, rgba(190, 175, 145, 0.2), transparent 70%);
   border-radius: inherit;
-}
-
-@media (min-width: 760px) {
-  .counter-surface { min-height: 240px; }
+  pointer-events: none;
 }
 
 .counter-hint {
   position: absolute;
   top: 8px;
   left: 12px;
-  font-size: 0.62rem;
+  font-size: 0.7rem;
   font-weight: 700;
   color: rgba(120, 90, 60, 0.5);
   text-transform: uppercase;
@@ -927,307 +1347,794 @@ body.reduce-motion .shelf-items span { animation: none; }
   font-family: var(--font-display);
 }
 
-.items-layer, .puddles-layer {
+.items-layer {
   position: absolute;
   inset: 0;
-  pointer-events: none; /* let clicks fall through to actual chips/puddles, not the empty layer */
+  pointer-events: none;
+  z-index: 4;
 }
 
-.items-layer { z-index: 4; }
-.puddles-layer { z-index: 3; }
-
-.items-layer > .food-item,
-.puddles-layer > .puddle {
+.items-layer>.food-item {
   pointer-events: auto;
 }
 
-.counter-edge {
-  height: 10px;
-  background: linear-gradient(180deg, var(--wood-m) 0%, var(--wood-d) 100%);
-  margin: 0 -2px;
-  border-radius: 0 0 4px 4px;
-  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.08);
+/* COUNTER FRONT (oblique view: shorter front face below top, with cabinet doors) */
+.counter-front {
+  height: 54px;
+  display: flex;
+  gap: 6px;
+  background:
+    /* subtle vertical wood-grain striations */
+    repeating-linear-gradient(90deg,
+      transparent 0,
+      transparent 22px,
+      rgba(74, 53, 40, 0.06) 22px,
+      rgba(74, 53, 40, 0.06) 23px),
+    linear-gradient(180deg, #f0d5a8 0%, #d4a878 200%, #b88454 200%);
+  border-radius: 0 0 var(--r-md) var(--r-md);
+  border: 2px solid rgba(74, 53, 40, 0.3);
+  border-top: none;
+  padding: 7px 8px 9px;
   position: relative;
-  z-index: 1;
+  /* drop shadow under counter (suggests it sits on floor) */
+  box-shadow:
+    0 5px 0 var(--wood-d),
+    0 12px 22px rgba(74, 53, 40, 0.28),
+    inset 0 -2px 0 rgba(74, 53, 40, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
 }
 
-.counter-front {
-  display: flex;
-  gap: 4px;
-  height: 56px;
-  background: linear-gradient(180deg, #efd9b8 0%, #d9b88a 100%);
-  border: 2px solid rgba(140, 100, 70, 0.25);
-  border-top: none;
-  border-radius: 0 0 12px 12px;
-  padding: 5px;
-  margin: 0 4px;
-  box-shadow: var(--sh-soft);
-  position: relative;
-  z-index: 0;
+/* warm thin trim between counter top and wood front */
+.counter-front::before {
+  content: "";
+  position: absolute;
+  top: -3px;
+  left: 6%;
+  right: 6%;
+  height: 3px;
+  background: linear-gradient(180deg, #8a5e35 0%, #6f4a28 100%);
+  border-radius: 2px;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.25) inset;
+}
+
+@media (max-width: 760px) {
+  .counter-front {
+    height: 40px;
+    padding: 5px 6px 7px;
+  }
 }
 
 .cabinet-door {
   flex: 1;
-  background: linear-gradient(180deg, #f5e3c4 0%, #e3c896 100%);
+  background:
+    /* recessed inner panel */
+    radial-gradient(ellipse 75% 60% at 50% 45%, rgba(255, 255, 255, 0.45) 0%, transparent 70%),
+    linear-gradient(180deg, #fef0d4 0%, #f4d4a4 50%, #e8b878 100%);
   border-radius: 6px;
-  border: 1.5px solid rgba(140, 100, 70, 0.3);
+  border: 1.5px solid rgba(120, 80, 40, 0.45);
   position: relative;
-  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.3);
+  box-shadow:
+    inset 0 0 0 2px rgba(255, 255, 255, 0.45),
+    inset 0 -2px 4px rgba(120, 80, 40, 0.25),
+    0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+/* recessed panel groove */
+.cabinet-door::before {
+  content: "";
+  position: absolute;
+  inset: 5px 5px 12px 5px;
+  border: 1.2px solid rgba(120, 80, 40, 0.32);
+  border-radius: 4px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.4) 0%, transparent 30%),
+    linear-gradient(180deg, #fde2b8 0%, #ecc890 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.6),
+    inset 0 -1px 0 rgba(120, 80, 40, 0.18);
 }
 
 .cabinet-knob {
   position: absolute;
-  top: 50%;
-  right: 6px;
-  transform: translateY(-50%);
-  width: 6px;
-  height: 6px;
-  background: var(--wood-d);
-  border-radius: 50%;
-  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
-}
-
-/* ----- Cabinet jar (right) ----- */
-.iso-cabinet {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  cursor: pointer;
-  transition: transform 0.18s ease;
-}
-
-.iso-cabinet:hover { transform: translateY(-2px); }
-body.reduce-motion .iso-cabinet:hover { transform: none; }
-
-.cabinet-body {
-  width: 100%;
-  max-width: 158px;
-  aspect-ratio: 0.65;
+  bottom: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 9px;
+  height: 9px;
   background:
-    linear-gradient(180deg, #fff7e8 0%, #f5e0bb 100%);
-  border-radius: 14px;
-  border: 3px solid #fff;
-  outline: 1.5px solid rgba(140, 100, 70, 0.3);
+    radial-gradient(circle at 35% 30%, #fff 0%, #d8b888 30%, #8a5e35 80%);
+  border-radius: 50%;
+  border: 1px solid rgba(74, 53, 40, 0.5);
   box-shadow:
-    8px 10px 0 rgba(140, 100, 70, 0.18),
-    var(--sh-soft),
-    inset 0 2px 0 rgba(255, 255, 255, 0.7);
-  padding: 10px 8px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  gap: 6px;
+    0 1px 2px rgba(0, 0, 0, 0.3),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.3);
+  z-index: 1;
+}
+
+/* ----- JAR CABINET ----- */
+.sprite-cabinet {
+  width: 100%;
+  height: 140px;
   position: relative;
-  overflow: hidden;
-}
-
-.cabinet-body::before,
-.cabinet-body::after {
-  /* shelf separators */
-  content: "";
-  position: absolute;
-  left: 6px;
-  right: 6px;
-  height: 3px;
-  background: rgba(140, 100, 70, 0.28);
-  border-radius: 2px;
-  pointer-events: none;
-}
-.cabinet-body::before { top: 33.33%; }
-.cabinet-body::after { top: 66.66%; }
-
-.cabinet-row {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  font-size: 1.5rem;
-  flex: 1;
-}
-
-.cabinet-jar {
-  filter: drop-shadow(0 2px 2px rgba(140, 100, 70, 0.2));
-  animation: jar-bob 4.5s ease-in-out infinite;
-}
-
-.cabinet-row:nth-child(2) .cabinet-jar { animation-delay: 0.4s; }
-.cabinet-row:nth-child(3) .cabinet-jar { animation-delay: 0.8s; }
-
-body.reduce-motion .cabinet-jar { animation: none; }
-
-@keyframes jar-bob {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-1.5px); }
-}
-
-.iso-cabinet.highlight .cabinet-body {
-  border-color: var(--primary);
-  outline-color: var(--primary);
-  box-shadow:
-    8px 10px 0 var(--primary-d),
-    0 0 0 4px var(--primary-soft);
-  transform: translateY(-3px);
-}
-
-/* ----- Zone tag (label below appliance) ----- */
-.zone-tag {
-  margin-top: 10px;
-  background: rgba(255, 255, 255, 0.85);
-  border-radius: var(--r-pill);
-  padding: 0.32rem 0.85rem;
-  text-align: center;
-  border: 1.5px solid rgba(140, 100, 70, 0.18);
-  box-shadow: var(--sh-soft);
-  backdrop-filter: blur(2px);
-  display: flex;
-  flex-direction: column;
-  gap: 1px;
-  min-width: 86px;
-}
-
-.zone-title {
-  font-family: var(--font-display);
-  font-size: 0.78rem;
-  font-weight: 700;
-  color: var(--ink);
-  line-height: 1.1;
-}
-
-.zone-sub {
-  font-size: 0.6rem;
-  color: var(--ink-2);
-  font-weight: 500;
-  line-height: 1.2;
-}
-
-/* ===================== FLOOR ROW (dehumidifier, sink, trash) ===================== */
-.floor-row {
-  position: relative;
-  z-index: 2;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 0.85rem;
-  margin-top: 1rem;
-  align-items: stretch;
+  display: block;
+  filter: drop-shadow(0 6px 8px rgba(74, 53, 40, 0.18));
 }
 
 @media (max-width: 760px) {
-  .floor-row { gap: 0.5rem; }
+  .sprite-cabinet {
+    height: 110px;
+  }
 }
 
-/* Dehumidifier */
-.dehumidifier-zone {
+/* ZONE TAGS */
+.zone-tag {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  padding: 4px 12px;
+  background: #fff;
+  border-radius: var(--r-pill);
+  border: 1.5px solid rgba(180, 140, 100, 0.25);
+  box-shadow: var(--sh-soft);
+  text-align: center;
+  white-space: nowrap;
+}
+
+.zone-title {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--ink);
+  font-family: var(--font-display);
+  letter-spacing: 0.02em;
+}
+
+.zone-sub {
+  font-size: 0.62rem;
+  color: var(--ink-3);
+  font-weight: 500;
+}
+
+/* DROP-ZONE highlight when item is selected */
+.drop-zone.highlight {
+  filter: drop-shadow(0 0 12px rgba(126, 217, 156, 0.7)) brightness(1.05);
+  animation: zone-pulse 1s ease-in-out infinite;
+}
+
+@keyframes zone-pulse {
+
+  0%,
+  100% {
+    transform: translateY(-2px);
+  }
+
+  50% {
+    transform: translateY(-7px);
+  }
+}
+
+body.reduce-motion .drop-zone.highlight {
+  animation: none;
+}
+
+/* ==================================================================
+   FLOOR ZONES — sink + trash (positioned by .pos-* classes above)
+   ================================================================== */
+.floor-zone {
+  position: absolute;
+  background: transparent;
+  border: none;
+  padding: 0;
+  font-family: inherit;
+  color: inherit;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.18s var(--ease-bounce);
+}
+
+.floor-zone:hover {
+  transform: translateY(-3px);
+}
+
+body.reduce-motion .floor-zone:hover {
+  transform: none;
+}
+
+.floor-label {
+  margin-top: 6px;
+  padding: 3px 10px;
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: var(--r-pill);
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: var(--ink-2);
+  white-space: nowrap;
+  box-shadow: var(--sh-soft);
+}
+
+/* SINK */
+.sprite-sink {
+  width: 96px;
+  height: 84px;
   position: relative;
+  display: block;
+  filter: drop-shadow(0 4px 6px rgba(74, 53, 40, 0.18));
+}
+
+/* TRASH */
+.sprite-trash {
+  width: 68px;
+  height: 88px;
+  position: relative;
+  display: block;
+  filter: drop-shadow(0 5px 6px rgba(74, 53, 40, 0.2));
+}
+
+/* ==================================================================
+   CHEF WALKER — character moving freely in 2D floor space
+   left% AND top% both controlled by JS for full 2D movement
+   z-index updated by JS based on top% so chef overlaps correctly
+   ================================================================== */
+.chef-walker {
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 64px;
+  height: 96px;
+  z-index: 10;
+  pointer-events: none;
+  transition: left 0.7s var(--ease-smooth), top 0.7s var(--ease-smooth);
+}
+
+body.reduce-motion .chef-walker {
+  transition: none;
+}
+
+.chef-walker.walking .chef-sprite {
+  animation: chef-walk 0.4s ease-in-out infinite;
+}
+
+.chef-shadow {
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 56px;
+  height: 12px;
+  background: rgba(74, 53, 40, 0.32);
+  border-radius: 50%;
+  filter: blur(3px);
+  z-index: 0;
+}
+
+.chef-sprite {
+  width: 100%;
+  height: 100%;
+  display: block;
+  position: relative;
+  z-index: 1;
+  overflow: visible;
+  animation: chef-idle 1.6s ease-in-out infinite;
+  /* SVG renders crisp at any scale - no filter needed */
+  filter: drop-shadow(0 2px 0 rgba(74, 53, 40, 0.18));
+}
+
+@keyframes chef-idle {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+@keyframes chef-walk {
+  0% {
+    transform: translateY(0) rotate(-3deg);
+  }
+
+  50% {
+    transform: translateY(-4px) rotate(3deg);
+  }
+
+  100% {
+    transform: translateY(0) rotate(-3deg);
+  }
+}
+
+body.reduce-motion .chef-sprite {
+  animation: none;
+}
+
+/* Item being carried (above chef's head) */
+.chef-carry {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%) scale(0);
+  width: 32px;
+  height: 32px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 2;
+  pointer-events: none;
+  transition: transform 0.2s var(--ease-bounce);
+  filter: drop-shadow(0 4px 4px rgba(74, 53, 40, 0.3));
+  font-size: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
+  line-height: 1;
+}
+
+.chef-carry.carrying {
+  transform: translateX(-50%) scale(1);
+}
+
+/* ==================================================================
+   FOOD ITEMS (on counter)
+   ================================================================== */
+.food-item {
+  position: absolute;
+  width: 56px;
+  height: 64px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  z-index: 4;
+  font-family: inherit;
+  transition: transform 0.18s var(--ease-bounce);
+}
+
+.food-item:hover {
+  transform: scale(1.12) translateY(-3px);
+}
+
+body.reduce-motion .food-item:hover {
+  transform: none;
+}
+
+.food-sprite {
+  width: 40px;
+  height: 40px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: block;
+  position: relative;
+  filter: drop-shadow(0 3px 3px rgba(74, 53, 40, 0.25));
+}
+
+.food-sprite::before {
+  content: attr(data-emoji);
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+  line-height: 1;
+  z-index: 1;
+}
+
+/* Zone badge */
+.food-badge {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 22px;
+  height: 22px;
+  background: #fff;
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+  box-shadow: 0 2px 4px rgba(74, 53, 40, 0.25);
+}
+
+.food-badge.fridge {
+  background: var(--sky);
+  color: var(--sky-d);
+}
+
+.food-badge.jar {
+  background: var(--honey);
+  color: var(--honey-d);
+}
+
+.food-badge.spoiled {
+  background: var(--rose);
+  color: #fff;
+}
+
+/* Age bar */
+.age-bar {
+  position: absolute;
+  bottom: -8px;
+  left: 2px;
+  right: 2px;
+  height: 7px;
+  background: rgba(74, 53, 40, 0.35);
+  border-radius: var(--r-pill);
+  overflow: hidden;
+  border: 1px solid rgba(74, 53, 40, 0.45);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
+}
+
+.age-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--mint-d), var(--mint));
+  transition: background 0.4s ease;
+  border-radius: var(--r-pill);
+}
+
+.food-item.aging .age-fill {
+  background: linear-gradient(90deg, var(--honey-d), var(--honey));
+}
+
+.food-item.critical .age-fill {
+  background: linear-gradient(90deg, var(--rose-d), var(--rose));
+}
+
+.food-item.critical {
+  animation: food-shake 0.5s ease-in-out infinite;
+}
+
+@keyframes food-shake {
+
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+
+  25% {
+    transform: rotate(-4deg);
+  }
+
+  75% {
+    transform: rotate(4deg);
+  }
+}
+
+body.reduce-motion .food-item.critical {
+  animation: none;
+}
+
+.food-item.spoiled .food-sprite {
+  filter: hue-rotate(60deg) saturate(0.5) brightness(0.85) drop-shadow(0 3px 3px rgba(74, 53, 40, 0.25));
+}
+
+.food-item.spoiled .age-bar {
+  display: none;
+}
+
+.food-item.selected {
+  animation: food-bob 0.5s ease-in-out infinite;
+  filter: drop-shadow(0 0 12px var(--rose));
+}
+
+@keyframes food-bob {
+
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+
+  50% {
+    transform: translateY(-6px) scale(1.08);
+  }
+}
+
+body.reduce-motion .food-item.selected {
+  animation: none;
+}
+
+/* ==================================================================
+   PUDDLES (on floor)
+   ================================================================== */
+.puddles-layer {
+  position: absolute;
+  /* Center floor area, avoiding furniture corners */
+  inset: 50% 18% 22% 18%;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.puddles-layer>.puddle {
+  pointer-events: auto;
+}
+
+.puddle {
+  position: absolute;
+  width: 48px;
+  height: 18px;
+  background:
+    radial-gradient(ellipse, var(--sky-d) 0%, var(--sky-d) 30%, transparent 80%);
+  border-radius: 50%;
+  cursor: pointer;
+  pointer-events: auto;
+  border: none;
+  padding: 0;
+  animation: puddle-shimmer 2s ease-in-out infinite;
+  filter: drop-shadow(0 2px 2px rgba(74, 53, 40, 0.18));
+}
+
+.puddle::before {
+  content: "";
+  position: absolute;
+  top: 25%;
+  left: 30%;
+  width: 40%;
+  height: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+}
+
+.puddle:hover {
+  transform: scale(1.12);
+}
+
+body.reduce-motion .puddle:hover {
+  transform: none;
+}
+
+@keyframes puddle-shimmer {
+
+  0%,
+  100% {
+    opacity: 0.85;
+  }
+
+  50% {
+    opacity: 1;
+    transform: scaleX(1.05);
+  }
+}
+
+body.reduce-motion .puddle {
+  animation: none;
+}
+
+/* ==================================================================
+   POP TEXTS — floating feedback
+   ================================================================== */
+.pop-text {
+  position: absolute;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 800;
+  text-shadow: 0 2px 0 #fff, 0 0 6px rgba(255, 255, 255, 0.7);
+  pointer-events: none;
+  z-index: 10;
+  animation: pop-rise 0.95s var(--ease-out) forwards;
+  white-space: nowrap;
+}
+
+.pop-text.gain {
+  color: var(--mint-d);
+}
+
+.pop-text.loss {
+  color: var(--rose-d);
+}
+
+.pop-text.score {
+  color: var(--honey-d);
+}
+
+@keyframes pop-rise {
+  0% {
+    transform: translateY(0) scale(0.6);
+    opacity: 0;
+  }
+
+  20% {
+    transform: translateY(-10px) scale(1.2);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(-50px) scale(1);
+    opacity: 0;
+  }
+}
+
+/* ==================================================================
+   SIDE PANEL
+   ================================================================== */
+.side-panel {
+  background: linear-gradient(180deg, #fff 0%, var(--cream) 100%);
+  border-radius: var(--r-lg);
+  padding: 1rem 1.1rem;
+  box-shadow: var(--sh-soft);
+  border: 2px solid #fff;
+  outline: 1px solid rgba(180, 140, 100, 0.18);
+}
+
+.panel-head {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding-bottom: 0.6rem;
+  margin-bottom: 0.6rem;
+  border-bottom: 2px dashed rgba(180, 140, 100, 0.35);
+}
+
+.panel-icon {
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 50%;
+  border: 1.5px solid rgba(74, 53, 40, 0.08);
+  flex-shrink: 0;
+}
+
+.side-panel h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  color: var(--ink);
+}
+
+.high-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 0.6rem;
+}
+
+.high-list li {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink);
+  padding: 0.36rem 0;
+  border-bottom: 1px dashed rgba(180, 140, 100, 0.25);
+}
+
+.high-list li:last-child {
+  border-bottom: none;
+}
+
+.muted {
+  color: var(--ink-3);
+}
+
+.small {
+  font-size: 0.78rem;
+}
+
+/* DEHUMIDIFIER */
+.dehumidifier-zone {
+  padding-top: 1rem;
+  width: 20%;
+  border-top: 2px dashed rgba(180, 140, 100, 0.35);
+  position: relative;
 }
 
 .appliance-btn {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 0.4rem;
-  background: linear-gradient(180deg, #ffffff 0%, #ecf2f8 100%);
-  border: 2px solid #fff;
-  outline: 1.5px solid rgba(140, 160, 184, 0.3);
-  border-radius: var(--r-md);
-  color: var(--ink);
-  padding: 0.7rem 0.9rem;
-  cursor: pointer;
-  font: inherit;
-  font-weight: 600;
-  touch-action: manipulation;
-  box-shadow:
-    0 4px 0 rgba(140, 160, 184, 0.25),
-    var(--sh-soft);
-  transition: transform 0.18s ease, box-shadow 0.2s ease, background 0.2s ease;
+  gap: 0.65rem;
   width: 100%;
-  max-width: 200px;
+  padding: 0.65rem 0.85rem;
+  background: linear-gradient(180deg, #fff 0%, var(--cream-2) 100%);
+  border: 1.5px solid rgba(180, 140, 100, 0.3);
+  border-radius: var(--r-md);
+  cursor: pointer;
+  font-family: inherit;
+  color: inherit;
+  box-shadow: 0 4px 0 rgba(180, 140, 100, 0.2), var(--sh-soft);
+  transition: transform 0.18s var(--ease-bounce), box-shadow 0.2s ease;
 }
-
-body.reduce-motion .appliance-btn { transition: none; }
 
 .appliance-btn:hover {
   transform: translateY(-2px);
-  background: linear-gradient(180deg, #ffffff 0%, #f5faff 100%);
+  box-shadow: 0 6px 0 rgba(180, 140, 100, 0.25), var(--sh-soft);
+}
+
+.appliance-btn:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 rgba(180, 140, 100, 0.2);
 }
 
 .appliance-btn[aria-pressed="true"] {
-  background: linear-gradient(180deg, #d8f0e6 0%, #a8e0c8 100%);
-  outline-color: var(--primary);
-  box-shadow:
-    0 4px 0 var(--primary-d),
-    0 0 0 4px rgba(168, 224, 200, 0.5);
+  background: linear-gradient(180deg, var(--sky) 0%, #a0cce0 100%);
+  border-color: var(--sky-d);
 }
 
-.appliance-btn[aria-pressed="true"] .appliance-emoji {
-  animation: dehumid-spin 1.6s linear infinite;
+.appliance-sprite {
+  width: 38px;
+  height: 38px;
+  background-image: url('assets/furniture/dehumidifier.png');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  flex-shrink: 0;
 }
 
-body.reduce-motion .appliance-btn[aria-pressed="true"] .appliance-emoji { animation: none; }
-
-@keyframes dehumid-spin {
-  to { transform: rotate(360deg); }
-}
-
-.appliance-emoji {
-  font-size: 1.8rem;
-  line-height: 1;
-  display: inline-block;
-  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.1));
+.sprite-dehumidifier::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    /* vents */
+    linear-gradient(rgba(74, 53, 40, 0.25), rgba(74, 53, 40, 0.25)) 22% 14% / 56% 2px no-repeat,
+    linear-gradient(rgba(74, 53, 40, 0.25), rgba(74, 53, 40, 0.25)) 22% 22% / 56% 2px no-repeat,
+    /* body */
+    linear-gradient(180deg, var(--sky) 0%, var(--sky-d) 100%);
+  border-radius: 8px 8px 4px 4px;
+  border: 2px solid rgba(74, 53, 40, 0.25);
+  box-shadow: 0 3px 0 rgba(74, 53, 40, 0.2);
+  z-index: -1;
 }
 
 .appliance-info {
   display: flex;
   flex-direction: column;
+  gap: 4px;
+  flex: 1;
   align-items: center;
-  gap: 3px;
 }
 
 .appliance-label {
   font-family: var(--font-display);
-  font-size: 0.78rem;
+  font-size: 0.85rem;
   font-weight: 700;
   color: var(--ink);
 }
 
 .status-pill {
-  font-size: 0.62rem;
+  font-size: 0.7rem;
   font-weight: 700;
-  padding: 0.18rem 0.55rem;
+  padding: 2px 10px;
   border-radius: var(--r-pill);
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  border: 1.5px solid transparent;
-}
-
-.status-pill.on {
-  background: var(--primary);
-  color: #fff;
-  border-color: var(--primary-d);
-  box-shadow: 0 2px 0 var(--primary-d);
+  letter-spacing: 0.04em;
+  font-family: var(--font-display);
 }
 
 .status-pill.off {
-  color: var(--ink-3);
-  background: var(--steel-l);
-  border-color: var(--steel-m);
+  background: var(--stone);
+  color: var(--ink-2);
 }
 
+.status-pill.on {
+  background: var(--mint);
+  color: var(--mint-d);
+}
+
+/* MIST */
 .dehumidifier-mist {
   position: absolute;
-  bottom: 80%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 60px;
-  height: 50px;
+  bottom: 100%;
+  left: 0;
+  right: 0;
+  height: 36px;
   pointer-events: none;
   opacity: 0;
   transition: opacity 0.4s ease;
 }
 
-.appliance-btn[aria-pressed="true"] ~ .dehumidifier-mist,
 .dehumidifier-zone:has(.appliance-btn[aria-pressed="true"]) .dehumidifier-mist {
   opacity: 1;
 }
@@ -1235,893 +2142,421 @@ body.reduce-motion .appliance-btn[aria-pressed="true"] .appliance-emoji { animat
 .dehumidifier-mist span {
   position: absolute;
   bottom: 0;
-  width: 14px;
-  height: 14px;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.85) 0%, rgba(200, 220, 240, 0.4) 60%, transparent 100%);
+  width: 8px;
+  height: 8px;
+  background: var(--sky);
   border-radius: 50%;
-  animation: mist-rise 2.2s ease-out infinite;
+  animation: mist-rise 2s ease-out infinite;
+  filter: blur(1px);
 }
 
-.dehumidifier-mist span:nth-child(1) { left: 10%; animation-delay: 0s; }
-.dehumidifier-mist span:nth-child(2) { left: 38%; animation-delay: 0.6s; }
-.dehumidifier-mist span:nth-child(3) { left: 62%; animation-delay: 1.1s; }
-.dehumidifier-mist span:nth-child(4) { left: 80%; animation-delay: 1.6s; }
+.dehumidifier-mist span:nth-child(1) {
+  left: 22%;
+  animation-delay: 0s;
+}
 
-body.reduce-motion .dehumidifier-mist span { animation: none; opacity: 0.4; }
+.dehumidifier-mist span:nth-child(2) {
+  left: 42%;
+  animation-delay: 0.5s;
+}
+
+.dehumidifier-mist span:nth-child(3) {
+  left: 60%;
+  animation-delay: 1s;
+}
+
+.dehumidifier-mist span:nth-child(4) {
+  left: 78%;
+  animation-delay: 1.5s;
+}
 
 @keyframes mist-rise {
-  0% { transform: translateY(0) scale(0.7); opacity: 0; }
-  30% { opacity: 1; }
-  100% { transform: translateY(-40px) scale(1.3); opacity: 0; }
-}
-
-/* Sink */
-.sink-zone {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  text-align: center;
-  background: linear-gradient(180deg, #ffffff 0%, var(--sky) 100%);
-  border: 2px solid #fff;
-  outline: 1.5px solid rgba(140, 160, 184, 0.3);
-  border-radius: var(--r-md);
-  padding: 0.7rem 0.6rem;
-  box-shadow: 0 4px 0 rgba(140, 160, 184, 0.2), var(--sh-soft);
-  gap: 0.35rem;
-}
-
-.sink-basin {
-  background: linear-gradient(180deg, #cee3f0 0%, #a4c8de 100%);
-  border-radius: 14px;
-  width: 100%;
-  max-width: 130px;
-  height: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  border: 2px solid rgba(120, 145, 170, 0.4);
-  box-shadow:
-    inset 0 2px 6px rgba(80, 110, 140, 0.25),
-    inset 0 -1px 0 rgba(255, 255, 255, 0.4);
-  font-size: 1.4rem;
-}
-
-.sink-tap, .sink-sponge {
-  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.1));
-}
-
-.sink-zone .zone-sub {
-  max-width: 140px;
-}
-
-/* Trash */
-.trash-zone {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  cursor: pointer;
-  transition: transform 0.18s ease;
-}
-
-.trash-zone:hover { transform: translateY(-2px); }
-body.reduce-motion .trash-zone:hover { transform: none; }
-
-.trash-body {
-  position: relative;
-  width: 84px;
-  height: 92px;
-}
-
-.trash-lid {
-  position: absolute;
-  top: 0;
-  left: -4px;
-  right: -4px;
-  height: 14px;
-  background: linear-gradient(180deg, #4a5568 0%, #2d3748 100%);
-  border-radius: 8px 8px 4px 4px;
-  border: 2px solid #fff;
-  box-shadow: var(--sh-soft);
-  transform-origin: 100% 100%;
-  transition: transform 0.2s ease;
-  z-index: 2;
-}
-
-.trash-lid::after {
-  content: "";
-  position: absolute;
-  top: 4px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 18px;
-  height: 3px;
-  background: #1a202c;
-  border-radius: 2px;
-}
-
-.trash-zone:hover .trash-lid { transform: rotate(-15deg) translateY(-2px); }
-body.reduce-motion .trash-zone:hover .trash-lid { transform: none; }
-
-.trash-can {
-  position: absolute;
-  top: 12px;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(180deg, #4a5568 0%, #2d3748 100%);
-  border-radius: 4px 4px 14px 14px;
-  border: 2px solid #fff;
-  box-shadow:
-    var(--sh-soft),
-    inset 0 8px 12px rgba(0, 0, 0, 0.3);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.6rem;
-  z-index: 1;
-}
-
-.trash-can::before {
-  content: "";
-  position: absolute;
-  inset: 6px 8px;
-  background:
-    repeating-linear-gradient(
-      90deg,
-      rgba(255, 255, 255, 0.04) 0,
-      rgba(255, 255, 255, 0.04) 5px,
-      transparent 5px,
-      transparent 10px
-    );
-  border-radius: 2px;
-  pointer-events: none;
-}
-
-.trash-emoji {
-  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.4));
-  position: relative;
-  z-index: 1;
-}
-
-.trash-zone.highlight .trash-can,
-.trash-zone.highlight .trash-lid {
-  outline: 4px solid var(--danger);
-  outline-offset: 2px;
-}
-
-/* Generic drop-zone highlight (works as fallback) */
-.drop-zone.highlight {
-  filter: brightness(1.05);
-}
-
-/* corner plant */
-.corner-plant {
-  bottom: 14px;
-  left: 14px;
-  font-size: 2.4rem;
-  z-index: 1;
-}
-
-.plant-leaves {
-  display: inline-block;
-  filter: drop-shadow(0 4px 4px rgba(0, 0, 0, 0.15));
-  animation: plant-sway 5s ease-in-out infinite;
-}
-
-body.reduce-motion .plant-leaves { animation: none; }
-
-@keyframes plant-sway {
-  0%, 100% { transform: rotate(-3deg); }
-  50% { transform: rotate(3deg); }
-}
-
-/* ===================== FOOD CHIPS ===================== */
-.food-item {
-  position: absolute;
-  width: 52px;
-  height: 52px;
-  border-radius: 16px;
-  background:
-    radial-gradient(circle at 30% 25%, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.5) 60%),
-    linear-gradient(180deg, #fff 0%, #fbf2e2 100%);
-  border: 2px solid #fff;
-  outline: 1.5px solid rgba(140, 100, 70, 0.18);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.85rem;
-  cursor: grab;
-  touch-action: none;
-  user-select: none;
-  z-index: 4;
-  box-shadow:
-    0 3px 0 rgba(140, 100, 70, 0.18),
-    var(--sh-soft);
-  transition: transform 0.18s ease, box-shadow 0.18s ease;
-  animation: food-pop-in 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-body.reduce-motion .food-item { transition: none; animation: none; }
-
-@keyframes food-pop-in {
-  0% { transform: scale(0); opacity: 0; }
-  100% { transform: scale(1); opacity: 1; }
-}
-
-.food-item:hover {
-  transform: translateY(-2px) scale(1.04);
-  box-shadow:
-    0 5px 0 rgba(140, 100, 70, 0.18),
-    var(--sh-pop);
-}
-
-.food-item.dragging {
-  cursor: grabbing;
-  z-index: 30;
-  transform: scale(1.12) rotate(-3deg);
-  box-shadow:
-    0 12px 24px rgba(140, 100, 70, 0.3),
-    var(--sh-pop);
-}
-
-.food-item.spoiled {
-  border-color: var(--danger);
-  outline-color: var(--danger);
-  background:
-    radial-gradient(circle at 30% 25%, rgba(255, 255, 255, 0.6), transparent 60%),
-    linear-gradient(180deg, #fde0e0 0%, #f5b8b8 100%);
-  animation: spoil-shake 0.7s ease-in-out infinite;
-}
-
-body.reduce-motion .food-item.spoiled { animation: none; }
-
-@keyframes spoil-shake {
-  0%, 100% { transform: translateX(0) rotate(0); box-shadow: 0 3px 0 var(--danger), 0 0 12px rgba(232, 150, 150, 0.4); }
-  25% { transform: translateX(-1px) rotate(-1.5deg); }
-  75% { transform: translateX(1px) rotate(1.5deg); box-shadow: 0 3px 0 var(--danger), 0 0 18px rgba(232, 150, 150, 0.55); }
-}
-
-/* Aging bar — shows how close the food is to spoiling.
-   Green when fresh, yellow at half life, red near spoil. */
-.age-bar {
-  position: absolute;
-  bottom: 4px;
-  left: 6px;
-  right: 6px;
-  height: 4px;
-  background: rgba(140, 100, 70, 0.22);
-  border-radius: 999px;
-  overflow: hidden;
-  pointer-events: none;
-  z-index: 2;
-}
-
-.age-fill {
-  height: 100%;
-  width: calc(var(--age, 0) * 100%);
-  background: linear-gradient(90deg, #6ec496 0%, #f0c870 55%, #e89090 100%);
-  border-radius: inherit;
-  transition: width 0.32s ease-out;
-}
-
-body.reduce-motion .age-fill { transition: none; }
-
-.food-item.spoiled .age-bar { display: none; }
-
-/* "Aging" — wobble gently to draw attention at the half-life */
-.food-item.aging {
-  animation: aging-wobble 1.7s ease-in-out infinite;
-}
-
-@keyframes aging-wobble {
-  0%, 100% { transform: rotate(0); }
-  25% { transform: rotate(-2deg); }
-  75% { transform: rotate(2deg); }
-}
-
-/* "Critical" — pulse red when about to spoil */
-.food-item.critical {
-  animation: aging-pulse 0.65s ease-in-out infinite;
-  outline-color: #f0a878;
-}
-
-@keyframes aging-pulse {
-  0%, 100% {
-    transform: scale(1);
-    box-shadow: 0 3px 0 rgba(140, 100, 70, 0.18), 0 0 0 0 rgba(232, 144, 144, 0);
+  0% {
+    transform: translateY(0) scale(0.4);
+    opacity: 0;
   }
-  50% {
-    transform: scale(1.06);
-    box-shadow: 0 3px 0 rgba(140, 100, 70, 0.18), 0 0 0 7px rgba(232, 144, 144, 0.45);
+
+  30% {
+    opacity: 0.85;
+  }
+
+  100% {
+    transform: translateY(-36px) scale(1.6);
+    opacity: 0;
   }
 }
 
-body.reduce-motion .food-item.aging,
-body.reduce-motion .food-item.critical { animation: none; }
-
-/* Don't fight the dragging visual — it takes precedence */
-.food-item.dragging.aging,
-.food-item.dragging.critical {
+body.reduce-motion .dehumidifier-mist span {
   animation: none;
 }
 
-/* Visible target badge — tells the player where this item belongs */
-.food-target {
-  position: absolute;
-  top: -9px;
-  right: -9px;
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.95rem;
-  border: 2px solid #fff;
-  box-shadow: 0 2px 0 rgba(60, 70, 90, 0.18), var(--sh-soft);
-  pointer-events: none;
-  z-index: 2;
-  font-family: "Apple Color Emoji", "Segoe UI Emoji", sans-serif;
-  line-height: 1;
-}
-
-.food-item.target-fridge .food-target {
-  background: linear-gradient(180deg, #d8eef8 0%, var(--sky-2) 100%);
-}
-
-.food-item.target-jar .food-target {
-  background: linear-gradient(180deg, #ffeac0 0%, var(--honey) 100%);
-}
-
-.food-item.target-trash .food-target {
-  background: linear-gradient(180deg, #ffd8d8 0%, var(--danger) 100%);
-}
-
-/* Item border tint — reinforces destination */
-.food-item.target-fridge {
-  outline-color: rgba(140, 195, 220, 0.55);
-}
-.food-item.target-jar {
-  outline-color: rgba(220, 175, 100, 0.55);
-}
-
-.food-item.sealed::after {
-  content: "✓";
-  position: absolute;
-  bottom: -4px;
-  right: -4px;
-  font-size: 0.55rem;
-  font-weight: 700;
-  background: var(--primary);
-  color: #fff;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  line-height: 14px;
-  text-align: center;
-  border: 2px solid #fff;
-  box-shadow: var(--sh-soft);
-}
-
-/* food tooltip */
-.food-tip {
-  position: absolute;
-  bottom: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  margin-bottom: 6px;
-  font-size: 0.6rem;
-  font-weight: 600;
-  white-space: nowrap;
-  background: var(--ink);
-  color: #fff;
-  padding: 4px 9px;
-  border-radius: 8px;
-  border: 1.5px solid rgba(255, 255, 255, 0.2);
-  pointer-events: none;
-  opacity: 0;
-  max-width: 140px;
-  white-space: normal;
-  text-align: center;
-  line-height: 1.25;
-  box-shadow: var(--sh-soft);
-  font-family: var(--font-body);
-  transition: opacity 0.15s ease;
-}
-
-.food-tip::after {
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  border: 4px solid transparent;
-  border-top-color: var(--ink);
-}
-
-.food-item:hover .food-tip,
-.food-item:focus .food-tip {
-  opacity: 1;
-}
-
-@media (hover: none) and (pointer: coarse) {
-  .food-item .food-tip {
-    opacity: 0.92;
-    font-size: 0.5rem;
-    max-width: 84px;
-    bottom: auto;
-    top: 100%;
-    margin-top: 5px;
-    margin-bottom: 0;
-  }
-  .food-tip::after {
-    top: auto;
-    bottom: 100%;
-    border-top-color: transparent;
-    border-bottom-color: var(--ink);
-  }
-}
-
-/* ===================== PUDDLES ===================== */
-.puddle {
-  position: absolute;
-  width: 46px;
-  height: 32px;
-  border-radius: 50% 50% 45% 45%;
-  background:
-    radial-gradient(ellipse at 30% 30%, rgba(255, 255, 255, 0.7) 0%, transparent 40%),
-    radial-gradient(ellipse at 50% 50%, rgba(168, 218, 255, 0.85), rgba(140, 195, 220, 0.6));
-  border: 1.5px solid rgba(120, 180, 220, 0.4);
-  cursor: pointer;
-  touch-action: manipulation;
-  z-index: 3;
-  box-shadow:
-    0 2px 6px rgba(80, 120, 160, 0.3),
-    inset 0 -2px 4px rgba(255, 255, 255, 0.4);
-  animation: puddle-shimmer 2.4s ease-in-out infinite;
-}
-
-body.reduce-motion .puddle { animation: none; }
-
-@keyframes puddle-shimmer {
-  0%, 100% { transform: scale(1); opacity: 0.92; }
-  50% { transform: scale(1.06); opacity: 1; }
-}
-
-.puddle::after {
-  content: "💧";
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.05rem;
-  pointer-events: none;
-  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.15));
-}
-
-/* ===================== SIDE PANEL ===================== */
-.side-panel {
-  background: linear-gradient(180deg, #ffffff 0%, var(--cream) 100%);
-  border-radius: var(--r-lg);
-  padding: 1rem 1.1rem 1.1rem;
-  box-shadow: var(--sh-pop);
-  border: 2px solid #fff;
-  outline: 1px solid rgba(180, 160, 140, 0.18);
-}
-
-.panel-head {
-  display: flex;
-  align-items: center;
-  gap: 0.45rem;
-  margin-bottom: 0.6rem;
-  padding-bottom: 0.55rem;
-  border-bottom: 2px dashed rgba(180, 160, 140, 0.3);
-}
-
-.panel-head span { font-size: 1.2rem; }
-
-.side-panel h2 {
-  margin: 0;
-  font-family: var(--font-display);
-  font-size: 1.05rem;
-  font-weight: 700;
-  color: var(--ink);
-}
-
-.high-list {
-  margin: 0;
-  padding-left: 1.15rem;
-  font-size: 0.84rem;
-  line-height: 1.7;
-  color: var(--ink);
-  font-weight: 500;
-}
-
-.high-list li {
-  margin-bottom: 0.15rem;
-}
-
-.high-list li::marker {
-  color: var(--primary);
-  font-weight: 700;
-}
-
-.muted { color: var(--ink-2); }
-.small { font-size: 0.72rem; }
-
-/* ===================== MODAL ===================== */
+/* ==================================================================
+   MODAL & OVERLAY
+   ================================================================== */
 .modal {
   position: fixed;
   inset: 0;
-  z-index: 100;
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 50;
   padding: 1rem;
 }
 
-.modal[hidden] { display: none !important; }
+.modal[hidden] {
+  display: none !important;
+}
 
 .modal-backdrop {
   position: absolute;
   inset: 0;
-  background: rgba(58, 70, 96, 0.32);
-  backdrop-filter: blur(5px);
+  background: rgba(74, 53, 40, 0.55);
+  backdrop-filter: blur(2px);
 }
 
 .modal-card {
   position: relative;
-  background: linear-gradient(180deg, #ffffff 0%, var(--cream) 100%);
+  background: linear-gradient(180deg, #fff 0%, var(--cream) 100%);
   border-radius: var(--r-lg);
-  padding: 1.3rem 1.4rem;
-  max-width: 420px;
-  width: 100%;
-  max-height: 90dvh;
-  overflow-y: auto;
   box-shadow: var(--sh-pop);
   border: 3px solid #fff;
-  outline: 1px solid rgba(180, 160, 140, 0.2);
-  z-index: 1;
-  animation: modal-pop 0.32s cubic-bezier(0.34, 1.56, 0.64, 1);
+  outline: 1px solid rgba(180, 140, 100, 0.2);
+  padding: 1.5rem 1.5rem 1.25rem;
+  max-width: 480px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: modal-pop 0.3s var(--ease-bounce);
 }
 
-body.reduce-motion .modal-card { animation: none; }
-
 @keyframes modal-pop {
-  0% { transform: scale(0.85); opacity: 0; }
-  100% { transform: scale(1); opacity: 1; }
+  0% {
+    transform: scale(0.7);
+    opacity: 0;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+body.reduce-motion .modal-card {
+  animation: none;
 }
 
 .modal-card h2 {
-  margin: 0 0 0.85rem;
+  margin: 0 0 1rem;
   font-family: var(--font-display);
-  font-size: 1.25rem;
-  font-weight: 700;
+  font-size: 1.3rem;
+  font-weight: 800;
   color: var(--ink);
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.modal-card h2::before {
-  content: "🎀";
-  font-size: 1.1rem;
 }
 
 .settings-form fieldset {
-  border: 2px solid rgba(180, 160, 140, 0.18);
+  margin: 0 0 0.95rem;
+  padding: 0.7rem 0.9rem;
   border-radius: var(--r-md);
-  margin: 0 0 0.8rem;
-  padding: 0.6rem 0.85rem;
+  border: 1.5px solid rgba(180, 140, 100, 0.25);
   background: rgba(255, 255, 255, 0.6);
 }
 
 .settings-form legend {
-  padding: 0 0.5rem;
   font-family: var(--font-display);
-  font-size: 0.74rem;
+  font-size: 0.85rem;
   font-weight: 700;
-  color: var(--primary-d);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  background: var(--cream);
+  padding: 4px 12px;
+  background: var(--cream-2);
   border-radius: var(--r-pill);
+  color: var(--ink);
 }
 
-.radio-row, .check-row {
+.radio-row,
+.check-row,
+.row-input {
   display: flex;
   align-items: center;
   gap: 0.55rem;
-  margin: 0.35rem 0;
-  font-size: 0.9rem;
+  padding: 0.36rem 0;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 600;
   color: var(--ink);
-  font-weight: 500;
-  padding: 0.2rem 0;
   cursor: pointer;
-  border-radius: var(--r-sm);
-  transition: background 0.15s ease;
-}
-
-.radio-row:hover, .check-row:hover {
-  background: rgba(118, 185, 164, 0.08);
-  padding-left: 0.4rem;
 }
 
 .row-input {
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
-  margin: 0.4rem 0 0.55rem 1.5rem;
-  font-size: 0.82rem;
-  font-weight: 600;
-  color: var(--ink-2);
+  justify-content: space-between;
+  cursor: default;
 }
 
-.row-input input {
-  padding: 0.55rem 0.75rem;
-  border-radius: var(--r-sm);
-  border: 2px solid rgba(180, 160, 140, 0.3);
+.row-input input[type="number"] {
+  width: 90px;
+  padding: 0.36rem 0.6rem;
+  border: 1.5px solid rgba(180, 140, 100, 0.3);
+  border-radius: var(--r-pill);
   background: #fff;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 700;
   color: var(--ink);
-  font: inherit;
-  font-weight: 600;
-  transition: border-color 0.15s, box-shadow 0.15s;
-}
-
-.row-input input:focus {
-  outline: none;
-  border-color: var(--primary);
-  box-shadow: 0 0 0 4px var(--primary-soft);
+  text-align: center;
 }
 
 .modal-actions {
   display: flex;
-  gap: 0.6rem;
   justify-content: flex-end;
-  margin-top: 1rem;
-  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 1.1rem;
 }
 
-/* ===================== END OVERLAY ===================== */
+/* OVERLAY (end-of-game) */
 .overlay {
   position: fixed;
   inset: 0;
-  z-index: 90;
-  background: rgba(58, 70, 96, 0.32);
-  backdrop-filter: blur(4px);
   display: flex;
   align-items: center;
   justify-content: center;
+  background: rgba(74, 53, 40, 0.7);
+  backdrop-filter: blur(4px);
+  z-index: 60;
   padding: 1rem;
 }
 
-.overlay[hidden] { display: none !important; }
+.overlay[hidden] {
+  display: none !important;
+}
 
 .overlay-card {
-  background: linear-gradient(180deg, #ffffff 0%, var(--cream) 100%);
-  padding: 1.8rem 1.5rem 1.4rem;
+  background: linear-gradient(180deg, #fff 0%, var(--cream) 100%);
   border-radius: var(--r-lg);
-  max-width: 380px;
-  text-align: center;
-  border: 3px solid #fff;
-  outline: 1px solid rgba(180, 160, 140, 0.2);
   box-shadow: var(--sh-pop);
-  animation: modal-pop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  border: 3px solid #fff;
+  padding: 1.8rem 2.2rem;
+  text-align: center;
+  max-width: 440px;
+  width: 100%;
+  animation: modal-pop 0.4s var(--ease-bounce);
 }
-
-body.reduce-motion .overlay-card { animation: none; }
 
 .overlay-emoji {
-  font-size: 3.2rem;
-  margin-bottom: 0.4rem;
-  animation: end-bounce 1.6s ease-in-out infinite;
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 1rem;
+  background: radial-gradient(circle at 30% 30%, var(--honey) 0%, var(--honey-d) 100%);
+  border: 4px solid #fff;
+  border-radius: 50%;
+  position: relative;
+  box-shadow: 0 6px 0 var(--honey-d), 0 12px 24px rgba(74, 53, 40, 0.25);
 }
 
-body.reduce-motion .overlay-emoji { animation: none; }
+/* cute face */
+.overlay-emoji::before,
+.overlay-emoji::after {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 14px;
+  background: var(--ink);
+  border-radius: 50%;
+  top: 30%;
+}
 
-@keyframes end-bounce {
-  0%, 100% { transform: translateY(0) rotate(-6deg); }
-  50% { transform: translateY(-6px) rotate(6deg); }
+.overlay-emoji::before {
+  left: 26%;
+}
+
+.overlay-emoji::after {
+  right: 26%;
 }
 
 .overlay-card h2 {
   margin: 0 0 0.5rem;
   font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 1.4rem;
+  font-size: 1.55rem;
+  font-weight: 800;
   color: var(--ink);
 }
 
 .end-msg {
+  margin: 0 0 1.1rem;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 600;
   color: var(--ink-2);
-  margin: 0 0 1.2rem;
-  font-size: 0.95rem;
-  line-height: 1.5;
 }
 
-/* ===================== Floating "+N" feedback ===================== */
-.pop-text {
-  position: fixed;
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 1.05rem;
-  pointer-events: none;
-  z-index: 250;
-  white-space: nowrap;
-  transform: translate(-50%, 0);
-  text-shadow:
-    0 0 4px #fff,
-    0 0 8px #fff,
-    0 2px 4px rgba(0, 0, 0, 0.18);
-  animation: pop-rise 0.95s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-}
-
-.pop-text.gain { color: #1f9e6d; }
-.pop-text.loss { color: #c84a4a; }
-.pop-text.score { color: #c98a18; font-size: 0.9rem; }
-
-@keyframes pop-rise {
-  0% { opacity: 0; transform: translate(-50%, 14px) scale(0.6); }
-  18% { opacity: 1; transform: translate(-50%, 0) scale(1.18); }
-  35% { transform: translate(-50%, -8px) scale(1); }
-  100% { opacity: 0; transform: translate(-50%, -54px) scale(0.95); }
-}
-
-body.reduce-motion .pop-text { animation: none; opacity: 0; }
-
-/* Meter flash on gain/loss */
-.meter-fill.flash-gain {
-  animation: meter-flash-gain 0.55s ease-out;
-}
-.meter-fill.flash-loss {
-  animation: meter-flash-loss 0.55s ease-out;
-}
-
-body.reduce-motion .meter-fill.flash-gain,
-body.reduce-motion .meter-fill.flash-loss { animation: none; }
-
-@keyframes meter-flash-gain {
-  0% { box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6), 0 0 0 0 rgba(110, 196, 150, 0.7); }
-  40% { box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6), 0 0 0 6px rgba(110, 196, 150, 0.5); }
-  100% { box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6), 0 0 0 0 rgba(110, 196, 150, 0); }
-}
-
-@keyframes meter-flash-loss {
-  0% { box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6), 0 0 0 0 rgba(232, 144, 144, 0.7); }
-  40% { box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6), 0 0 0 6px rgba(232, 144, 144, 0.5); }
-  100% { box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6), 0 0 0 0 rgba(232, 144, 144, 0); }
-}
-
-/* ===================== Drag-time: zone glow ===================== */
-/* When the player is dragging an item, the matching destination pulses to invite a drop */
-
-@keyframes zone-pulse {
-  0%, 100% {
-    box-shadow:
-      8px 10px 0 var(--primary-d),
-      0 0 0 4px rgba(168, 224, 200, 0.55),
-      0 0 24px rgba(168, 224, 200, 0.45);
-  }
-  50% {
-    box-shadow:
-      8px 10px 0 var(--primary-d),
-      0 0 0 8px rgba(168, 224, 200, 0.7),
-      0 0 36px rgba(168, 224, 200, 0.65);
-  }
-}
-
-@keyframes zone-pulse-trash {
-  0%, 100% {
-    outline: 4px solid var(--danger);
-    outline-offset: 2px;
-    box-shadow: 0 0 24px rgba(232, 150, 150, 0.55);
-  }
-  50% {
-    outline-width: 6px;
-    box-shadow: 0 0 36px rgba(232, 150, 150, 0.85);
-  }
-}
-
-body.is-dragging-fridge .iso-fridge .fridge-body {
-  border-color: var(--primary);
-  outline-color: var(--primary);
-  animation: zone-pulse 1.1s ease-in-out infinite;
-  transform: translateY(-4px);
-}
-
-body.is-dragging-jar .iso-cabinet .cabinet-body {
-  border-color: var(--primary);
-  outline-color: var(--primary);
-  animation: zone-pulse 1.1s ease-in-out infinite;
-  transform: translateY(-4px);
-}
-
-body.is-dragging-trash .trash-zone .trash-can,
-body.is-dragging-trash .trash-zone .trash-lid {
-  animation: zone-pulse-trash 1s ease-in-out infinite;
-}
-
-body.is-dragging-trash .trash-zone .trash-lid {
-  transform: rotate(-22deg) translateY(-3px);
-}
-
-/* Dim the non-matching destinations slightly so the right one stands out */
-body.is-dragging-fridge .iso-cabinet,
-body.is-dragging-fridge .trash-zone,
-body.is-dragging-jar .iso-fridge,
-body.is-dragging-jar .trash-zone,
-body.is-dragging-trash .iso-fridge,
-body.is-dragging-trash .iso-cabinet {
-  opacity: 0.55;
-  filter: grayscale(0.3);
-  transition: opacity 0.2s ease, filter 0.2s ease;
-}
-
-body.reduce-motion body.is-dragging-fridge .iso-fridge .fridge-body,
-body.reduce-motion body.is-dragging-jar .iso-cabinet .cabinet-body,
-body.reduce-motion body.is-dragging-trash .trash-zone .trash-can,
-body.reduce-motion body.is-dragging-trash .trash-zone .trash-lid {
-  animation: none;
-}
-
-/* While a chip is being dragged it sits in <body> with position:fixed.
-   Make sure the dragging chip floats above all scene chrome. */
-body > .food-item.dragging {
-  z-index: 200;
-}
-
-/* ===================== Puddle hover (clearer affordance) ===================== */
-.puddle {
-  transition: transform 0.18s ease, box-shadow 0.18s ease;
-}
-
-.puddle:hover, .puddle:focus {
-  transform: scale(1.2);
-  box-shadow:
-    0 0 0 5px rgba(168, 218, 255, 0.55),
-    0 6px 14px rgba(80, 120, 160, 0.5),
-    inset 0 -2px 4px rgba(255, 255, 255, 0.4);
+/* ==================================================================
+   CANNED PANTRY — bottom-center small cabinet (5th storage zone)
+   ================================================================== */
+.pos-canned {
+  top: 1rem;
+  left: 88%;
+  width: 90px;
   z-index: 6;
 }
 
-body.reduce-motion .puddle { transition: none; }
+@media (max-width: 760px) {
+  .pos-canned {
+    width: 70px;
+    bottom: 3%;
+  }
+}
 
-/* "Sponge" hint above the puddle on hover, and a "click me" pulse always-on */
-.puddle::before {
-  content: "🧽";
+.iso-canned {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sprite-canned {
+  width: 100%;
+  height: 110px;
+  position: relative;
+  display: block;
+  filter: drop-shadow(0 5px 7px rgba(74, 53, 40, 0.22));
+}
+
+.sprite-canned>svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+@media (max-width: 760px) {
+  .sprite-canned {
+    height: 86px;
+  }
+}
+
+/* ==================================================================
+   SUN PATCHES — warm glowing zones on the counter that double spoil rate
+   ================================================================== */
+.sun-layer {
   position: absolute;
-  top: -22px;
-  left: 50%;
-  transform: translateX(-50%) scale(0);
-  font-size: 0.95rem;
-  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.18));
-  transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
+  inset: 0;
   pointer-events: none;
+  z-index: 2;
 }
 
-.puddle:hover::before {
-  transform: translateX(-50%) scale(1);
+.sun-patch {
+  position: absolute;
+  border-radius: 50%;
+  background:
+    radial-gradient(ellipse at center,
+      rgba(255, 220, 120, 0.55) 0%,
+      rgba(255, 210, 100, 0.35) 40%,
+      rgba(255, 200, 80, 0.15) 70%,
+      transparent 100%);
+  box-shadow:
+    inset 0 0 18px rgba(255, 220, 120, 0.35),
+    0 0 22px rgba(255, 200, 80, 0.25);
+  animation: sun-pulse 2.6s ease-in-out infinite;
+  mix-blend-mode: multiply;
 }
 
-body.reduce-motion .puddle::before { transition: none; }
-
-/* Always-on attention ring so puddles read as interactive even at rest */
-.puddle {
-  outline: 2px dashed rgba(120, 180, 220, 0.55);
-  outline-offset: 2px;
+.sun-patch::after {
+  content: "☀";
+  position: absolute;
+  top: 6%;
+  left: 8%;
+  font-size: 14px;
+  color: rgba(180, 110, 30, 0.7);
+  filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.7));
 }
 
-/* ===================== Responsive niceties ===================== */
-@media (max-width: 980px) {
-  .side-panel { order: 2; }
+@keyframes sun-pulse {
+
+  0%,
+  100% {
+    opacity: 0.85;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
 }
 
-@media (max-width: 480px) {
-  .game-title { font-size: 0.95rem; }
-  .iso-fridge .fridge-body, .iso-cabinet .cabinet-body { max-width: 110px; }
-  .floor-row { grid-template-columns: 1fr 1fr; }
-  .trash-zone { grid-column: span 2; flex-direction: row; gap: 0.7rem; justify-content: center; }
-  .trash-body { width: 64px; height: 72px; }
+body.reduce-motion .sun-patch {
+  animation: none;
+}
+
+/* ==================================================================
+   FOOD ITEM — group badges, in-sun and opened states
+   ================================================================== */
+.food-badge.canned {
+  background: #ffc0a8;
+  color: #b04020;
+}
+
+.food-badge.meat {
+  background: #ffb0a8;
+  color: #b03828;
+}
+
+.food-badge.dairy {
+  background: #fff2c8;
+  color: #a8741c;
+}
+
+.food-badge.produce {
+  background: #c8e8c0;
+  color: #3a7028;
+}
+
+.food-badge.grain {
+  background: var(--honey);
+  color: var(--honey-d);
+}
+
+.food-item.in-sun {
+  filter: drop-shadow(0 0 10px rgba(255, 200, 60, 0.85));
+}
+
+.food-item.in-sun::after {
+  content: "☀";
+  position: absolute;
+  top: -10px;
+  left: -8px;
+  width: 20px;
+  height: 20px;
+  background: #ffe89a;
+  border: 2px solid #d99a18;
+  border-radius: 50%;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+  animation: food-shake 0.6s ease-in-out infinite;
+}
+
+body.reduce-motion .food-item.in-sun::after {
+  animation: none;
+}
+
+/* OPENED canned-good state (lid removed; must go cold quickly) */
+.food-item.opened .food-badge {
+  background: #ff90a8;
+  color: #fff;
+  border-color: #d04060;
+}
+
+.food-item.opened .food-badge::after {
+  content: "!";
+  font-weight: 900;
+}
+
+.food-item.opened .food-sprite {
+  /* Slight tint to suggest the lid is off */
+  filter: drop-shadow(0 3px 3px rgba(74, 53, 40, 0.25)) hue-rotate(-8deg) brightness(1.05);
+}
+
+/* Pop-text variant for "mixed spoiled" warning */
+.pop-text.warn {
+  color: #b03828;
+  text-shadow: 0 2px 0 #fff, 0 0 8px rgba(255, 180, 120, 0.7);
 }

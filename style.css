@@ -164,7 +164,7 @@ body {
 .brand-sprite {
   width: 36px;
   height: 36px;
-  background-image: url('assets/ui/logo-pan.png');
+  /* background-image: url('assets/ui/logo-pan.png'); */
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
@@ -2065,7 +2065,7 @@ body.reduce-motion .puddle {
 .appliance-sprite {
   width: 38px;
   height: 38px;
-  background-image: url('assets/furniture/dehumidifier.png');
+  /* background-image: url('assets/furniture/dehumidifier.png'); */
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
@@ -2373,16 +2373,15 @@ body.reduce-motion .modal-card {
 .overlay-card h2 {
   margin: 0 0 0.5rem;
   font-family: var(--font-display);
-  font-size: 1.55rem;
-  font-weight: 800;
+  font-size: 1rem;
   color: var(--ink);
 }
 
 .end-msg {
   margin: 0 0 1.1rem;
   font-family: var(--font-body);
-  font-size: 1rem;
-  font-weight: 600;
+  font-size: 2rem;
+  font-weight: 800;
   color: var(--ink-2);
 }
 

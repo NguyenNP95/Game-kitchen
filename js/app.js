@@ -525,7 +525,7 @@ function spawnItem() {
   const badgeIcon = preSpoiled ? "✗" : badgeIconFor(def.group, opened, zone);
   const ageWidth = preSpoiled ? 100 : (initialAge / spoilMs) * 100;
   el.innerHTML = `
-    <span class="food-sprite" data-emoji="${def.emoji}" style="background-image:url('assets/food/${def.id}.png');"></span>
+    <span class="food-sprite" data-emoji="${def.emoji}"></span>
     <span class="${badgeClass}">${badgeIcon}</span>
     <div class="age-bar"><div class="age-fill" style="width:${ageWidth}%"></div></div>
   `;
@@ -732,7 +732,7 @@ function endGame(win, reason) {
     setTimeout(() => beep(990, 0.08), 120);
     els.endTitle.textContent = t(locale, "victoryTitle");
     els.endMessage.textContent =
-      `${reason === "time" ? t(locale, "victoryTime") : t(locale, "victoryScore")} — ${stats}`;
+      `${stats}`;
     pushHighScore({
       score: net,
       at: Date.now(),
@@ -745,7 +745,7 @@ function endGame(win, reason) {
     els.endTitle.textContent =
       reason === "humidity" ? t(locale, "defeatHumidity") : t(locale, "defeatHygiene");
     els.endMessage.textContent =
-      `${reason === "humidity" ? t(locale, "defeatSubHumidity") : t(locale, "defeatSubHygiene")} — ${stats}`;
+      `${stats}`;
   }
 
   els.overlayEnd.hidden = false;

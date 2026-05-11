@@ -2334,7 +2334,7 @@ body.reduce-motion .modal-card {
   border: 3px solid #fff;
   padding: 1.8rem 2.2rem;
   text-align: center;
-  max-width: 440px;
+  max-width: 540px;
   width: 100%;
   animation: modal-pop 0.4s var(--ease-bounce);
 }

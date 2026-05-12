@@ -1,7 +1,6 @@
 const { browserLocale, resolveLocale, t, tf, difficultyLabel, winModeLabel } = window.MKitchen.i18n;
 const { loadSettings, saveSettings, loadHighScores, pushHighScore } = window.MKitchen.storage;
 const {
-  OPENED_CANNED_HOURS,
   diffMult,
   humidityRamp,
   gameHoursToMs,
@@ -41,7 +40,6 @@ const els = {
   counter: document.getElementById("dropCounter"),
   zoneFridge: document.getElementById("zoneFridge"),
   zoneJar: document.getElementById("zoneJar"),
-  zoneCanned: document.getElementById("zoneCanned"),
   zoneTrash: document.getElementById("zoneTrash"),
   zoneSponge: document.getElementById("zoneSponge"),
   chefWalker: document.getElementById("chefWalker"),
@@ -194,7 +192,6 @@ function getValidZones(itemId) {
 function zoneEl(zone) {
   if (zone === 'fridge') return els.zoneFridge;
   if (zone === 'jar') return els.zoneJar;
-  if (zone === 'canned') return els.zoneCanned;
   if (zone === 'trash') return els.zoneTrash;
   return null;
 }
@@ -500,12 +497,7 @@ function spawnItem() {
   const { def, preSpoiled } = pickSpawn();
   const id = `it_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`;
 
-  // 25% of canOpen-eligible cans spawn already opened — must go cold within 2 game-hours.
-  // Pre-spoiled items skip the opened roll (the spoil state already overrides routing).
-  const opened = !preSpoiled && !!(def.canOpen && Math.random() < 0.25);
-  const hours = opened ? OPENED_CANNED_HOURS : def.hours;
-  const zone = opened ? "fridge" : def.zone;
-  const spoilMs = gameHoursToMs(hours, game.difficulty) / (game.dehumidifierOn ? 1.15 : 1);
+  const spoilMs = gameHoursToMs(def.hours, game.difficulty) / (game.dehumidifierOn ? 1.15 : 1);
 
   let initialAge = 0;
   if (!preSpoiled && game.items.size >= 3 && Math.random() < 0.22) {
@@ -515,14 +507,14 @@ function spawnItem() {
   const pos = randomCounterPos();
   const el = document.createElement("button");
   el.type = "button";
-  el.className = "food-item" + (opened ? " opened" : "") + (preSpoiled ? " spoiled" : "");
+  el.className = "food-item" + (preSpoiled ? " spoiled" : "");
   el.style.left = `${pos.x}px`;
   el.style.top = `${pos.y}px`;
   el.dataset.id = id;
   el.setAttribute("aria-label", t(locale, def.nameKey) || def.id);
 
   const badgeClass = preSpoiled ? "food-badge spoiled" : `food-badge ${def.group}`;
-  const badgeIcon = preSpoiled ? "✗" : badgeIconFor(def.group, opened, zone);
+  const badgeIcon = preSpoiled ? "✗" : badgeIconFor(def.zone);
   const ageWidth = preSpoiled ? 100 : (initialAge / spoilMs) * 100;
   el.innerHTML = `
     <span class="food-sprite" data-emoji="${def.emoji}"></span>
@@ -538,23 +530,19 @@ function spawnItem() {
   game.items.set(id, {
     def,
     group: def.group,
-    opened,
     spoiled: !!preSpoiled,
     age: preSpoiled ? spoilMs : initialAge,
     spoilMs,
-    zone,
+    zone: def.zone,
     inSun: false,
     el,
   });
 
   if (preSpoiled) popText(el, t(locale, "foodTipSpoiled"), "loss");
-  else if (opened) popText(el, t(locale, "popOpened"), "warn");
 }
 
-function badgeIconFor(group, opened, zone) {
-  if (opened) return "!";
+function badgeIconFor(zone) {
   if (zone === "fridge") return "❄";
-  if (zone === "canned") return "▣";
   if (zone === "jar") return "◉";
   return "•";
 }
@@ -811,7 +799,7 @@ els.btnDehumidifier.addEventListener("click", () => {
   beep(game.dehumidifierOn ? 600 : 320, 0.04);
 });
 
-[els.zoneFridge, els.zoneJar, els.zoneCanned, els.zoneTrash].forEach((zoneElNode) => {
+[els.zoneFridge, els.zoneJar, els.zoneTrash].forEach((zoneElNode) => {
   if (!zoneElNode) return;
   zoneElNode.addEventListener("click", (e) => {
     e.stopPropagation();

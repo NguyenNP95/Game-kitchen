@@ -626,10 +626,6 @@ body.reduce-motion .btn {
   background: var(--honey);
 }
 
-.tip-pill-canned .tip-icon {
-  background: #ffc0a8;
-}
-
 .tip-pill-sun .tip-icon {
   background: #ffe89a;
 }
@@ -2386,50 +2382,6 @@ body.reduce-motion .modal-card {
 }
 
 /* ==================================================================
-   CANNED PANTRY — bottom-center small cabinet (5th storage zone)
-   ================================================================== */
-.pos-canned {
-  top: 1rem;
-  left: 88%;
-  width: 90px;
-  z-index: 6;
-}
-
-@media (max-width: 760px) {
-  .pos-canned {
-    width: 70px;
-    bottom: 3%;
-  }
-}
-
-.iso-canned {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.sprite-canned {
-  width: 100%;
-  height: 110px;
-  position: relative;
-  display: block;
-  filter: drop-shadow(0 5px 7px rgba(74, 53, 40, 0.22));
-}
-
-.sprite-canned>svg {
-  display: block;
-  width: 100%;
-  height: 100%;
-  overflow: visible;
-}
-
-@media (max-width: 760px) {
-  .sprite-canned {
-    height: 86px;
-  }
-}
-
-/* ==================================================================
    SUN PATCHES — warm glowing zones on the counter that double spoil rate
    ================================================================== */
 .sun-layer {
@@ -2484,13 +2436,8 @@ body.reduce-motion .sun-patch {
 }
 
 /* ==================================================================
-   FOOD ITEM — group badges, in-sun and opened states
+   FOOD ITEM — group badges and in-sun states
    ================================================================== */
-.food-badge.canned {
-  background: #ffc0a8;
-  color: #b04020;
-}
-
 .food-badge.meat {
   background: #ffb0a8;
   color: #b03828;
@@ -2535,23 +2482,6 @@ body.reduce-motion .sun-patch {
 
 body.reduce-motion .food-item.in-sun::after {
   animation: none;
-}
-
-/* OPENED canned-good state (lid removed; must go cold quickly) */
-.food-item.opened .food-badge {
-  background: #ff90a8;
-  color: #fff;
-  border-color: #d04060;
-}
-
-.food-item.opened .food-badge::after {
-  content: "!";
-  font-weight: 900;
-}
-
-.food-item.opened .food-sprite {
-  /* Slight tint to suggest the lid is off */
-  filter: drop-shadow(0 3px 3px rgba(74, 53, 40, 0.25)) hue-rotate(-8deg) brightness(1.05);
 }
 
 /* Pop-text variant for "mixed spoiled" warning */

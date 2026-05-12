@@ -18,9 +18,7 @@
     dairy: 3,
     produce: 4,
     grain: 8,
-    canned: 12,        // closed lid
   };
-  const OPENED_CANNED_HOURS = 2;
 
   /** Each group's primary storage zone. */
   const GROUP_ZONE = {
@@ -28,18 +26,16 @@
     dairy: "fridge",
     produce: "fridge",
     grain: "jar",
-    canned: "canned",  // closed cans go to the canned-goods cabinet
   };
 
   /**
    * @typedef {Object} FoodDef
    * @property {string} id
    * @property {string} emoji
-   * @property {'meat'|'dairy'|'produce'|'grain'|'canned'} group
-   * @property {'fridge'|'jar'|'canned'} zone     primary correct zone (closed canned only)
+   * @property {'meat'|'dairy'|'produce'|'grain'} group
+   * @property {'fridge'|'jar'} zone
    * @property {string} nameKey
    * @property {number} hours                     room-temp shelf life in game-hours
-   * @property {boolean} [canOpen]                only true for canned: may spawn opened
    */
 
   /** @type {FoodDef[]} */
@@ -70,11 +66,6 @@
     { id: "noodles",   emoji: "🍜", group: "grain",   zone: "jar",    nameKey: "fn_noodles",   hours: GROUP_HOURS.grain },
     { id: "blackBeans", emoji: "🫘", group: "grain",  zone: "jar",    nameKey: "fn_blackBeans", hours: GROUP_HOURS.grain },
 
-    // Đồ hộp & gia vị (12h closed, 2h once opened)
-    { id: "cannedMeat", emoji: "🥫", group: "canned", zone: "canned", nameKey: "fn_cannedMeat", hours: GROUP_HOURS.canned, canOpen: true },
-    { id: "pate",       emoji: "🥫", group: "canned", zone: "canned", nameKey: "fn_pate",       hours: GROUP_HOURS.canned, canOpen: true },
-    { id: "sardines",   emoji: "🥫", group: "canned", zone: "canned", nameKey: "fn_sardines",   hours: GROUP_HOURS.canned, canOpen: true },
-    { id: "fishSauce",  emoji: "🍶", group: "canned", zone: "canned", nameKey: "fn_fishSauce",  hours: GROUP_HOURS.canned, canOpen: false },
   ];
 
   /** @param {'easy'|'normal'|'hard'} d */
@@ -117,13 +108,7 @@
 
   /**
    * Decide what to spawn next.
-   * Goal: balance the three storage zones so no zone is over-loaded.
-   * Distribution:
-   *   12% pre-spoiled    → must go to Trash
-   *   29.3% Fridge zone  → meat / dairy / produce (picked uniformly within fridge group)
-   *   29.3% Dry storage  → grain
-   *   29.3% Canned zone  → canned & seasonings
-   *
+   * Distribution: 12% pre-spoiled, 44% fridge zone, 44% dry storage.
    * @returns {{ def: FoodDef, preSpoiled: boolean }}
    */
   function pickSpawn() {
@@ -131,11 +116,7 @@
       const def = FOOD_CATALOG[(Math.random() * FOOD_CATALOG.length) | 0];
       return { def, preSpoiled: true };
     }
-    const r = Math.random();
-    let zone;
-    if (r < 1 / 3) zone = "fridge";
-    else if (r < 2 / 3) zone = "jar";
-    else zone = "canned";
+    const zone = Math.random() < 0.5 ? "fridge" : "jar";
     const pool = FOOD_CATALOG.filter((f) => f.zone === zone);
     const def = pool[(Math.random() * pool.length) | 0];
     return { def, preSpoiled: false };
@@ -146,7 +127,6 @@
     FOOD_CATALOG,
     GROUP_HOURS,
     GROUP_ZONE,
-    OPENED_CANNED_HOURS,
     MS_PER_GAME_HOUR,
     PRE_SPOILED_CHANCE,
     diffMult,

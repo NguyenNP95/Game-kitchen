@@ -9,7 +9,7 @@ const KEY_SCORES = "mkitchen_scores_v1";
  *  difficulty: 'easy'|'normal'|'hard',
  *  winMode: 'score'|'time',
  *  targetScore: number,
- *  targetMinutes: number,
+ *  targetSeconds: number,
  *  sound: boolean,
  *  reduceMotion: boolean
  * }} AppSettings */
@@ -19,7 +19,7 @@ const defaultSettings = () => ({
   difficulty: "normal",
   winMode: "score",
   targetScore: 25,        // net saved target (saved − wasted)
-  targetMinutes: 3,
+  targetSeconds: 90,
   sound: true,
   reduceMotion: false,
 });
@@ -32,10 +32,14 @@ function loadSettings() {
     const o = JSON.parse(raw);
     const merged = { ...defaultSettings(), ...o };
     // Migration: scoring switched from "points" (100-99999) to "net saved" (5-200).
-    // Anything above 200 is from the old system — reset to the new default.
     if (typeof merged.targetScore !== "number" || merged.targetScore > 200) {
       merged.targetScore = 25;
     }
+    // Migration: targetMinutes → targetSeconds
+    if (typeof merged.targetSeconds !== "number" && typeof merged.targetMinutes === "number") {
+      merged.targetSeconds = merged.targetMinutes * 60;
+    }
+    delete merged.targetMinutes;
     return merged;
   } catch {
     return defaultSettings();

@@ -23,8 +23,8 @@
   /** Each group's primary storage zone. */
   const GROUP_ZONE = {
     meat: "fridge",
-    dairy: "fridge",
-    produce: "fridge",
+    dairy: "jar",
+    produce: "jar",
     grain: "jar",
   };
 
@@ -40,31 +40,30 @@
 
   /** @type {FoodDef[]} */
   const FOOD_CATALOG = [
-    // Thịt tươi (2h)
-    { id: "chicken",   emoji: "🍗", group: "meat",    zone: "fridge", nameKey: "fn_chicken",   hours: GROUP_HOURS.meat },
-    { id: "beef",      emoji: "🥩", group: "meat",    zone: "fridge", nameKey: "fn_beef",      hours: GROUP_HOURS.meat },
-    { id: "fish",      emoji: "🐟", group: "meat",    zone: "fridge", nameKey: "fn_fish",      hours: GROUP_HOURS.meat },
-    { id: "shrimp",    emoji: "🦐", group: "meat",    zone: "fridge", nameKey: "fn_shrimp",    hours: GROUP_HOURS.meat },
+    // Thịt tươi — Tủ lạnh (2h)
+    { id: "pork",          emoji: "🍖", group: "meat",    zone: "fridge", nameKey: "fn_pork",          hours: GROUP_HOURS.meat },
+    { id: "beef",          emoji: "🥩", group: "meat",    zone: "fridge", nameKey: "fn_beef",          hours: GROUP_HOURS.meat },
+    { id: "chicken",       emoji: "🍗", group: "meat",    zone: "fridge", nameKey: "fn_chicken",       hours: GROUP_HOURS.meat },
+    { id: "snakeheadFish", emoji: "🐟", group: "meat",    zone: "fridge", nameKey: "fn_snakeheadFish", hours: GROUP_HOURS.meat },
 
-    // Sữa - trứng - bơ (3h)
-    { id: "milk",      emoji: "🥛", group: "dairy",   zone: "fridge", nameKey: "fn_milk",      hours: GROUP_HOURS.dairy },
-    { id: "eggs",      emoji: "🥚", group: "dairy",   zone: "fridge", nameKey: "fn_eggs",      hours: GROUP_HOURS.dairy },
-    { id: "butter",    emoji: "🧈", group: "dairy",   zone: "fridge", nameKey: "fn_butter",    hours: GROUP_HOURS.dairy },
-    { id: "cheese",    emoji: "🧀", group: "dairy",   zone: "fridge", nameKey: "fn_cheese",    hours: GROUP_HOURS.dairy },
+    // Rau củ quả — Tủ đồ khô (4h)
+    { id: "sweetCabbage",  emoji: "🥬", group: "produce", zone: "jar",    nameKey: "fn_sweetCabbage",  hours: GROUP_HOURS.produce },
+    { id: "carrot",        emoji: "🥕", group: "produce", zone: "jar",    nameKey: "fn_carrot",        hours: GROUP_HOURS.produce },
+    { id: "potato",        emoji: "🥔", group: "produce", zone: "jar",    nameKey: "fn_potato",        hours: GROUP_HOURS.produce },
+    { id: "tomato",        emoji: "🍅", group: "produce", zone: "jar",    nameKey: "fn_tomato",        hours: GROUP_HOURS.produce },
+    { id: "banana",        emoji: "🍌", group: "produce", zone: "jar",    nameKey: "fn_banana",        hours: GROUP_HOURS.produce },
 
-    // Rau củ quả tươi (4h)
-    { id: "tomato",    emoji: "🍅", group: "produce", zone: "fridge", nameKey: "fn_tomato",    hours: GROUP_HOURS.produce },
-    { id: "lettuce",   emoji: "🥬", group: "produce", zone: "fridge", nameKey: "fn_lettuce",   hours: GROUP_HOURS.produce },
-    { id: "carrot",    emoji: "🥕", group: "produce", zone: "fridge", nameKey: "fn_carrot",    hours: GROUP_HOURS.produce },
-    { id: "banana",    emoji: "🍌", group: "produce", zone: "fridge", nameKey: "fn_banana",    hours: GROUP_HOURS.produce },
-    { id: "mango",     emoji: "🥭", group: "produce", zone: "fridge", nameKey: "fn_mango",     hours: GROUP_HOURS.produce },
+    // Sữa & chế phẩm — Tủ đồ khô (3h)
+    { id: "milk",          emoji: "🥛", group: "dairy",   zone: "jar",    nameKey: "fn_milk",          hours: GROUP_HOURS.dairy },
+    { id: "yogurt",        emoji: "🥣", group: "dairy",   zone: "jar",    nameKey: "fn_yogurt",        hours: GROUP_HOURS.dairy },
+    { id: "cheese",        emoji: "🧀", group: "dairy",   zone: "jar",    nameKey: "fn_cheese",        hours: GROUP_HOURS.dairy },
+    { id: "butter",        emoji: "🧈", group: "dairy",   zone: "jar",    nameKey: "fn_butter",        hours: GROUP_HOURS.dairy },
 
-    // Ngũ cốc, hạt khô (8h)
-    { id: "rice",      emoji: "🍚", group: "grain",   zone: "jar",    nameKey: "fn_rice",      hours: GROUP_HOURS.grain },
-    { id: "peanuts",   emoji: "🥜", group: "grain",   zone: "jar",    nameKey: "fn_peanuts",   hours: GROUP_HOURS.grain },
-    { id: "cashews",   emoji: "🌰", group: "grain",   zone: "jar",    nameKey: "fn_cashews",   hours: GROUP_HOURS.grain },
-    { id: "noodles",   emoji: "🍜", group: "grain",   zone: "jar",    nameKey: "fn_noodles",   hours: GROUP_HOURS.grain },
-    { id: "blackBeans", emoji: "🫘", group: "grain",  zone: "jar",    nameKey: "fn_blackBeans", hours: GROUP_HOURS.grain },
+    // Ngũ cốc, hạt khô — Tủ đồ khô (8h)
+    { id: "rice",          emoji: "🍚", group: "grain",   zone: "jar",    nameKey: "fn_rice",          hours: GROUP_HOURS.grain },
+    { id: "mungBeans",     emoji: "🫘", group: "grain",   zone: "jar",    nameKey: "fn_mungBeans",     hours: GROUP_HOURS.grain },
+    { id: "flour",         emoji: "🌾", group: "grain",   zone: "jar",    nameKey: "fn_flour",         hours: GROUP_HOURS.grain },
+    { id: "noodles",       emoji: "🍜", group: "grain",   zone: "jar",    nameKey: "fn_noodles",       hours: GROUP_HOURS.grain },
 
   ];
 

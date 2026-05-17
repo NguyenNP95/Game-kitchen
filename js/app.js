@@ -28,7 +28,7 @@ const els = {
   modalSettings: document.getElementById("modalSettings"),
   formSettings: document.getElementById("formSettings"),
   inputTargetScore: document.getElementById("inputTargetScore"),
-  inputTargetMinutes: document.getElementById("inputTargetMinutes"),
+  inputTargetSeconds: document.getElementById("inputTargetSeconds"),
   checkSound: document.getElementById("checkSound"),
   checkReduceMotion: document.getElementById("checkReduceMotion"),
   overlayEnd: document.getElementById("overlayEnd"),
@@ -691,7 +691,7 @@ function startGame() {
   game.difficulty = settings.difficulty;
   game.winMode = settings.winMode;
   game.targetScore = Math.max(1, settings.targetScore);
-  game.targetMs = Math.max(60000, settings.targetMinutes * 60000);
+  game.targetMs = Math.max(10000, settings.targetSeconds * 1000);
   els.timerStat.hidden = settings.winMode !== "time";
 
   if (settings.winMode === "score") {
@@ -769,7 +769,7 @@ function openSettings() {
     inp.checked = inp.value === s.winMode;
   });
   els.inputTargetScore.value = String(s.targetScore);
-  els.inputTargetMinutes.value = String(s.targetMinutes);
+  els.inputTargetSeconds.value = String(s.targetSeconds);
   els.checkSound.checked = s.sound;
   els.checkReduceMotion.checked = s.reduceMotion;
   els.modalSettings.hidden = false;
@@ -832,7 +832,7 @@ els.formSettings.addEventListener("submit", (e) => {
     difficulty: diff === "easy" || diff === "hard" ? diff : "normal",
     winMode: wm === "time" ? "time" : "score",
     targetScore: Math.max(1, Math.min(200, target)),
-    targetMinutes: Math.max(1, Number(els.inputTargetMinutes.value) || 3),
+    targetSeconds: Math.max(10, Number(els.inputTargetSeconds.value) || 90),
     sound: els.checkSound.checked,
     reduceMotion: els.checkReduceMotion.checked,
   });
